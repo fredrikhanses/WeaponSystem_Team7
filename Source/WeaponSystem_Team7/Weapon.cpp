@@ -2,6 +2,7 @@
 
 
 #include "Weapon.h"
+#include "WeaponSystem_Team7Character.h"
 #include "Engine/Engine.h"
 
 // Sets default values
@@ -11,12 +12,16 @@ AWeapon::AWeapon()
 	PrimaryActorTick.bCanEverTick = true;
 
 
-	USceneComponent* scene = CreateDefaultSubobject<USceneComponent>("Root");
-	RootComponent = scene;
+	USceneComponent* Scene = CreateDefaultSubobject<USceneComponent>("Root");
+	RootComponent = Scene;
 
 	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(RootComponent);
+
+	Collider = CreateDefaultSubobject<USphereComponent>("Collider");
+	Collider->SetupAttachment(Mesh);
 	
+	Collider->OnComponentBeginOverlap.AddDynamic(this, &AWeapon::BeginOverlap);
 }
 
 void AWeapon::OnFire()
@@ -36,5 +41,14 @@ void AWeapon::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void AWeapon::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Magenta, "Collided with Weapon");
+
+	AWeaponSystem_Team7Character* character = Cast<AWeaponSystem_Team7Character>(OtherActor);
+
+	AttachToComponent(character->GetMesh1P(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, "GripPoint");
 }
 

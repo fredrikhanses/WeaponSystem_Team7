@@ -19,9 +19,6 @@ DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 AWeaponSystem_Team7Character::AWeaponSystem_Team7Character()
 {
-	WeaponPick = nullptr;
-	weapon = nullptr;
-
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
 

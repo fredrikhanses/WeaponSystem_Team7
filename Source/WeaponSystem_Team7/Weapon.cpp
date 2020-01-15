@@ -2,6 +2,7 @@
 
 
 #include "Weapon.h"
+#include "Engine/Engine.h"
 
 // Sets default values
 AWeapon::AWeapon()
@@ -20,6 +21,7 @@ AWeapon::AWeapon()
 
 void AWeapon::OnFire()
 {
+	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, "Fire");
 }
 
 // Called when the game starts or when spawned

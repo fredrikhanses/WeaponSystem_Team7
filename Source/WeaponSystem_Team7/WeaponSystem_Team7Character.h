@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Weapon.h"
 #include "GameFramework/Character.h"
 #include "WeaponSystem_Team7Character.generated.h"
 
@@ -12,6 +13,13 @@ UCLASS(config=Game)
 class AWeaponSystem_Team7Character : public ACharacter
 {
 	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "bWeapon")
+		TSubclassOf<AWeapon> WeaponPick;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "bWeapon")
+		AWeapon* weapon;
 
 	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)

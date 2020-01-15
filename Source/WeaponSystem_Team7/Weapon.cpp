@@ -50,5 +50,6 @@ void AWeapon::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 	AWeaponSystem_Team7Character* character = Cast<AWeaponSystem_Team7Character>(OtherActor);
 
 	AttachToComponent(character->GetMesh1P(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, "GripPoint");
+	character->Weapon = this;
 }
 

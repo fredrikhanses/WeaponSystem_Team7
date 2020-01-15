@@ -12,9 +12,18 @@ class WEAPONSYSTEM_TEAM7_API UFireMode_Single : public UActorComponent
 {
 	GENERATED_BODY()
 
+private:
+
+public:	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Properties")
+		float Spread;
 public:	
 	// Sets default values for this component's properties
 	UFireMode_Single();
+
+	void Fire();
+
+	void LineTrace();
 
 protected:
 	// Called when the game starts

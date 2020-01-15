@@ -13,6 +13,16 @@ UFireMode_Single::UFireMode_Single()
 	// ...
 }
 
+void UFireMode_Single::Fire()
+{
+}
+
+void UFireMode_Single::LineTrace()
+{
+
+
+}
+
 
 // Called when the game starts
 void UFireMode_Single::BeginPlay()

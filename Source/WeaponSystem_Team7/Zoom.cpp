@@ -16,21 +16,21 @@ UZoom::UZoom()
 }
 
 
-void UZoom::ZoomToggle(UCameraComponent* Camera, float ZoomAmount)
+void UZoom::ZoomToggle(UCameraComponent* Camera, float DefaultFieldOfView, float ZoomAmount)
 {
 	bZooming ? bZooming = false : bZooming = true;
 
 	if (bZooming)
 	{
 		GEngine->AddOnScreenDebugMessage(-2, 1.f, FColor::Orange, "Zooming");
-		Camera->FieldOfView = ZoomAmount;
-
+		
+		// This is a "guesstimated" value for zoom level
+		Camera->FieldOfView /= ZoomAmount;
 	}
 	else
 	{
 		GEngine->AddOnScreenDebugMessage(-2, 1.f, FColor::Orange, "UnZooming");
-
-		
+		Camera->FieldOfView = DefaultFieldOfView;
 	}
 
 }
@@ -39,7 +39,7 @@ void UZoom::ZoomToggle(UCameraComponent* Camera, float ZoomAmount)
 void UZoom::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	// ...
 	
 }

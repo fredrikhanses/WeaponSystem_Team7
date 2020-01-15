@@ -18,14 +18,10 @@ public:
 	UZoom();
 
 	UFUNCTION(BlueprintCallable)
-	void ZoomToggle(UCameraComponent* Camera, float ZoomAmount);
+	void ZoomToggle(UCameraComponent* Camera,float DefaultFieldOfView, float ZoomAmount);
 
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	//UCameraComponent* Camera;
-	
-
+private:
 	bool bZooming = false;
-
 
 protected:
 	// Called when the game starts

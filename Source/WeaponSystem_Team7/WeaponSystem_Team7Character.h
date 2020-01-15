@@ -15,11 +15,9 @@ class AWeaponSystem_Team7Character : public ACharacter
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "bWeapon")
-		TSubclassOf<AWeapon> WeaponPick;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "bWeapon")
-		AWeapon* weapon;
+	UPROPERTY(VisibleDefaultsOnly,BlueprintReadOnly, Category = Weapon)
+	class AWeapon* Weapon;
 
 	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)

@@ -19,9 +19,6 @@ DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 AWeaponSystem_Team7Character::AWeaponSystem_Team7Character()
 {
-	WeaponPick = nullptr;
-	weapon = nullptr;
-
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
 
@@ -91,14 +88,6 @@ void AWeaponSystem_Team7Character::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
-
-	FActorSpawnParameters spawnParams;
-	spawnParams.Owner = this;
-	spawnParams.Instigator = GetInstigator();
-
-	weapon = GetWorld()->SpawnActor<AWeapon>(WeaponPick, spawnParams);
-
-	weapon->AttachToComponent(Mesh1P, FAttachmentTransformRules::SnapToTargetNotIncludingScale, "GripPoint");
 
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
 	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));

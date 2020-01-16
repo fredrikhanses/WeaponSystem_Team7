@@ -16,6 +16,12 @@ class WEAPONSYSTEM_TEAM7_API UFireMode_Single : public UActorComponent
 
 private:
 
+	//True if the player can fire, false otherwise
+	bool bCanFire;
+
+	//Handle Delay between shots
+	FTimerHandle FireDelayTimerHandle;
+
 public:	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
 		float Spread;
@@ -23,11 +29,16 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
 		float Range;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
+		float FireRate;
+
 private:
 	void Instant_Fire(AWeapon* Weapon);
 	FHitResult LineTrace(AWeapon* Weapon,const FVector& TraceFrom, const FVector& TraceTo) const;
 	void ProcessInstantHit(const FHitResult& Hit, const FVector& Origin, const FVector& ShootDir, int32 RandomSeed, float ReticleSpread, AWeapon* Weapon);
 
+	//Resets the players ability to fire
+	void ResetFire();
 public:	
 	// Sets default values for this component's properties
 	UFireMode_Single();

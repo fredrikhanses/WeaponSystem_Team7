@@ -13,12 +13,37 @@ UFireMode_Projectile::UFireMode_Projectile()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
+	bCanFire = true;
 }
 
+// Called when the game starts
+void UFireMode_Projectile::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
+// Called every frame
+void UFireMode_Projectile::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+}
 
 void UFireMode_Projectile::Fire(AWeapon* Weapon)
 {
-	SpawnProjectile(Weapon);
+	if (bCanFire)
+	{
+		bCanFire = false;
+
+		SpawnProjectile(Weapon);
+
+		GetWorld()->GetTimerManager().SetTimer(FireDelayTimerHandle, this, &UFireMode_Projectile::ResetFire, FireRate, false);
+	}
+}
+
+void UFireMode_Projectile::ResetFire()
+{
+	bCanFire = true;
+	GetWorld()->GetTimerManager().ClearTimer(FireDelayTimerHandle);
 }
 
 void UFireMode_Projectile::SpawnProjectile(AWeapon* Weapon)
@@ -39,21 +64,4 @@ void UFireMode_Projectile::SpawnProjectile(AWeapon* Weapon)
 	GetWorld()->SpawnActor<AWeaponSystem_Team7Projectile>(ProjectileClass, StartLocation, StartRotation, ActorSpawnParams);
 }
 
-// Called when the game starts
-void UFireMode_Projectile::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// ...
-	
-}
-
-
-// Called every frame
-void UFireMode_Projectile::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
 

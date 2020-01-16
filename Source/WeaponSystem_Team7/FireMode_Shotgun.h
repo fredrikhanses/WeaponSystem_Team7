@@ -8,43 +8,68 @@
 #include "FireMode_Shotgun.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class WEAPONSYSTEM_TEAM7_API UFireMode_Shotgun : public UActorComponent
 {
 	GENERATED_BODY()
 
-
 private:
+
+	//True if the player can fire, false otherwise
+	bool bCanFire;
+
+	int BurstCount = 0;
+	int InitRapidFireShots;
+
+	AWeapon* Weapon;
+
+	//Handle Delay between shots
+	FTimerHandle FireDelayTimerHandle;
+
+	FTimerHandle RapidFireTimerHandle;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
-		float Spread;
+		float Spread=10;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
-		float Range;
+		float Range=750;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
-		int PebbleAmount;
+		int PebbleAmount=10;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
+		float FireRate=1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
+		int RapidFireShots = 5;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
+		float RapidFireDelay = 0.1f;
 
 private:
-	void Instant_Fire(AWeapon* Weapon);
-	FHitResult LineTrace(AWeapon* Weapon, const FVector& TraceFrom, const FVector& TraceTo) const;
-	void ProcessInstantHit(const FHitResult& Hit, const FVector& Origin, const FVector& ShootDir, int32 RandomSeed, float ReticleSpread, AWeapon* Weapon);
+	void Instant_Fire();
+	FHitResult LineTrace(const FVector& TraceFrom, const FVector& TraceTo) const;
+	void ProcessInstantHit(const FHitResult& Hit, const FVector& Origin, const FVector& ShootDir, int32 RandomSeed, float ReticleSpread);
 
-public:	
+	//Resets the players ability to fire
+	void ResetFire();
+
+public:
 	// Sets default values for this component's properties
 	UFireMode_Shotgun();
 
 	UFUNCTION(BlueprintCallable)
-		void Fire(AWeapon* Weapon);
+	void RapidFire();
+
+	UFUNCTION(BlueprintCallable)
+		void Fire();
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-		
 };

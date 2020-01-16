@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "Weapon.h"
 #include "WeaponSystem_Team7Projectile.h"
+#include <Engine/EngineTypes.h>
 #include "FireMode_Projectile.generated.h"
 
 
@@ -16,6 +17,11 @@ class WEAPONSYSTEM_TEAM7_API UFireMode_Projectile : public UActorComponent
 
 private:
 
+	//True if the player can fire, false otherwise
+	bool bCanFire;
+
+	//Handle Delay between shots
+	FTimerHandle FireDelayTimerHandle;
 
 
 public:
@@ -25,9 +31,15 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Properties")
 		TSubclassOf<AWeaponSystem_Team7Projectile> ProjectileClass;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
+		float FireRate;
+
 private:
 
 	void SpawnProjectile(AWeapon* Weapon);
+
+	//Resets the players ability to fire
+	void ResetFire();
 
 public:	
 	// Sets default values for this component's properties

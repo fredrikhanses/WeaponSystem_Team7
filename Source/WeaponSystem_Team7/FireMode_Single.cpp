@@ -18,9 +18,36 @@ UFireMode_Single::UFireMode_Single()
 	// ...
 }
 
+// Called when the game starts
+void UFireMode_Single::BeginPlay()
+{
+	Super::BeginPlay();
+
+	bCanFire = true;
+}
+
+// Called every frame
+void UFireMode_Single::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+}
+
 void UFireMode_Single::Fire(AWeapon* Weapon)
 {
-	Instant_Fire(Weapon);
+	if (bCanFire)
+	{
+		bCanFire = false;
+
+		Instant_Fire(Weapon);
+
+		GetWorld()->GetTimerManager().SetTimer(FireDelayTimerHandle, this, &UFireMode_Single::ResetFire, FireRate, false);
+	}
+}
+
+void UFireMode_Single::ResetFire()
+{
+	bCanFire = true;
+	GetWorld()->GetTimerManager().ClearTimer(FireDelayTimerHandle);
 }
 
 void UFireMode_Single::Instant_Fire(AWeapon* Weapon)
@@ -67,22 +94,3 @@ void UFireMode_Single::ProcessInstantHit(const FHitResult& Hit, const FVector& O
 		DrawDebugLine(Weapon->GetWorld(), Origin, Hit.TraceEnd, FColor::Red, false, 2.0f);
 	}
 }
-
-// Called when the game starts
-void UFireMode_Single::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// ...
-	
-}
-
-
-// Called every frame
-void UFireMode_Single::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
-

@@ -7,6 +7,7 @@
 #include <Engine/Engine.h>
 #include <Math/UnrealMathUtility.h>
 #include <Math/RandomStream.h>
+#include <TimerManager.h>
 
 // Sets default values for this component's properties
 UFireMode_Shotgun::UFireMode_Shotgun()
@@ -16,17 +17,55 @@ UFireMode_Shotgun::UFireMode_Shotgun()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
+	bCanFire = true;
 }
 
-void UFireMode_Shotgun::Fire(AWeapon* Weapon)
+// Called when the game starts
+void UFireMode_Shotgun::BeginPlay()
 {
-	for (int i = 0; i <= PebbleAmount; i++)
+	Super::BeginPlay();
+	InitRapidFireShots = RapidFireShots;
+
+	Weapon = Cast<AWeapon>(GetOwner());
+}
+
+// Called every frame
+void UFireMode_Shotgun::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+}
+
+void UFireMode_Shotgun::RapidFire()
+{
+	if (bCanFire)
 	{
-		Instant_Fire(Weapon);
+		GetWorld()->GetTimerManager().SetTimer(RapidFireTimerHandle, this, &UFireMode_Shotgun::Fire, RapidFireDelay, true);
+		bCanFire = false;
 	}
 }
 
-void UFireMode_Shotgun::Instant_Fire(AWeapon* Weapon)
+void UFireMode_Shotgun::Fire()
+{
+	if (--RapidFireShots <= 0)
+	{
+		GetWorld()->GetTimerManager().ClearTimer(RapidFireTimerHandle);
+		RapidFireShots = InitRapidFireShots;
+		GetWorld()->GetTimerManager().SetTimer(FireDelayTimerHandle, this, &UFireMode_Shotgun::ResetFire, FireRate, false);
+	}
+
+	for (int i = 0; i <= PebbleAmount; i++)
+	{
+		Instant_Fire();
+	}
+}
+
+void UFireMode_Shotgun::ResetFire()
+{
+	bCanFire = true;
+	GetWorld()->GetTimerManager().ClearTimer(FireDelayTimerHandle);
+}
+
+void UFireMode_Shotgun::Instant_Fire()
 {
 	const int32 RandomSeed = FMath::Rand();
 	FRandomStream WeaponRandomStream(RandomSeed);
@@ -36,12 +75,12 @@ void UFireMode_Shotgun::Instant_Fire(AWeapon* Weapon)
 	const FVector AimDir = Weapon->Mesh->GetSocketRotation("Muzzle").Vector();
 	const FVector ShootDir = WeaponRandomStream.VRandCone(AimDir, SpreadCone);
 	const FVector EndTrace = StartTrace + ShootDir * Range;
-	const FHitResult Hit = LineTrace(Weapon, StartTrace, EndTrace);
+	const FHitResult Hit = LineTrace(StartTrace, EndTrace);
 
-	ProcessInstantHit(Hit, StartTrace, ShootDir, RandomSeed, CurrentSpread, Weapon);
+	ProcessInstantHit(Hit, StartTrace, ShootDir, RandomSeed, CurrentSpread);
 }
 
-FHitResult UFireMode_Shotgun::LineTrace(AWeapon* Weapon, const FVector& TraceFrom, const FVector& TraceTo) const
+FHitResult UFireMode_Shotgun::LineTrace(const FVector& TraceFrom, const FVector& TraceTo) const
 {
 	static FName WeaponFireTag = FName(TEXT("WeaponTrace"));
 
@@ -55,7 +94,7 @@ FHitResult UFireMode_Shotgun::LineTrace(AWeapon* Weapon, const FVector& TraceFro
 	return Hit;
 }
 
-void UFireMode_Shotgun::ProcessInstantHit(const FHitResult& Hit, const FVector& Origin, const FVector& ShootDir, int32 RandomSeed, float ReticleSpread, AWeapon* Weapon)
+void UFireMode_Shotgun::ProcessInstantHit(const FHitResult& Hit, const FVector& Origin, const FVector& ShootDir, int32 RandomSeed, float ReticleSpread)
 {
 	const FVector Endtrace = Origin + ShootDir * Range;
 	const FVector EndPoint = Hit.GetActor() ? Hit.ImpactPoint : Endtrace;
@@ -71,21 +110,4 @@ void UFireMode_Shotgun::ProcessInstantHit(const FHitResult& Hit, const FVector& 
 	}
 }
 
-// Called when the game starts
-void UFireMode_Shotgun::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// ...
-
-}
-
-
-// Called every frame
-void UFireMode_Shotgun::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
 

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include <Camera/CameraComponent.h>
+#include "Camera/CameraComponent.h"
 #include "Zoom.generated.h"
 
 
@@ -18,10 +18,18 @@ public:
 	UZoom();
 
 	UFUNCTION(BlueprintCallable)
-	void ZoomToggle(UCameraComponent* Camera,float DefaultFieldOfView, float ZoomAmount);
+	void ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, float ZoomAmountADS, bool bWeaponHasScope);		
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UCameraComponent* ADSCam;
 
 private:
+
 	bool bZooming = false;
+	bool bAimDownSight = false;	
+	
+	bool bUsingZooming = false;
+	bool bUsingAimDownSight = false;
 
 protected:
 	// Called when the game starts

@@ -11,6 +11,8 @@
 #include <Engine/EngineTypes.h>
 #include "Weapon.generated.h"
 
+class UCameraComponent;
+
 UCLASS()
 class WEAPONSYSTEM_TEAM7_API AWeapon : public AActor
 {
@@ -23,6 +25,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Mesh")
 		USkeletalMeshComponent* Mesh;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+		UCameraComponent* ADSCam;
 public:
 
 	// Sets default values for this actor's properties

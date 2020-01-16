@@ -4,13 +4,16 @@
 #include "Weapon.h"
 #include "WeaponSystem_Team7Character.h"
 #include "Engine/Engine.h"
+#include <Camera/CameraComponent.h>
 
 // Sets default values
 AWeapon::AWeapon()
 {
+
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	
+	ADSCam = CreateDefaultSubobject<UCameraComponent>(TEXT("ADSCamera"));
 
 	USceneComponent* Scene = CreateDefaultSubobject<USceneComponent>("Root");
 	RootComponent = Scene;
@@ -20,6 +23,8 @@ AWeapon::AWeapon()
 
 	Collider = CreateDefaultSubobject<USphereComponent>("Collider");
 	Collider->SetupAttachment(Mesh);
+	
+	ADSCam->SetupAttachment(RootComponent);
 	
 	Collider->OnComponentBeginOverlap.AddDynamic(this, &AWeapon::BeginOverlap);
 }

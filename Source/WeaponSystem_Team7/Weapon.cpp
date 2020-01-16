@@ -51,5 +51,6 @@ void AWeapon::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 
 	AttachToComponent(character->GetMesh1P(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, "GripPoint");
 	character->Weapon = this;
+	Collider->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 

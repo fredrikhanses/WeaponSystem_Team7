@@ -3,7 +3,11 @@
 
 #include "Zoom.h"
 #include <Engine/Engine.h>
+#include "Components/SkeletalMeshComponent.h"
+#include "Weapon.h"
 #include <Camera/CameraComponent.h>
+#include <Kismet/GameplayStatics.h>
+#include <GameFramework/PlayerController.h>
 
 // Sets default values for this component's properties
 UZoom::UZoom()
@@ -11,28 +15,58 @@ UZoom::UZoom()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
+	
 
 	// ...
 }
 
 
-void UZoom::ZoomToggle(UCameraComponent* Camera, float DefaultFieldOfView, float ZoomAmount)
+void UZoom::ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, float ZoomAmountADS, bool bWeaponHasScope)
 {
-	bZooming ? bZooming = false : bZooming = true;
-
-	if (bZooming)
-	{
-		GEngine->AddOnScreenDebugMessage(-2, 1.f, FColor::Orange, "Zooming");
+	if (bWeaponHasScope) { bUsingZooming = true; }
+	else if (!bWeaponHasScope) { bUsingAimDownSight = true; }
 		
-		// This is a "guesstimated" value for zoom level
-		Camera->FieldOfView /= ZoomAmount;
-	}
-	else
+	if (bUsingZooming)
 	{
-		GEngine->AddOnScreenDebugMessage(-2, 1.f, FColor::Orange, "UnZooming");
-		Camera->FieldOfView = DefaultFieldOfView;
+		bZooming ? bZooming = false : bZooming = true;
+
+		if (bZooming)
+		{
+			// Add scope widget to view port
+
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Scoping");
+			Camera->FieldOfView /= ScopeZoomMultiplyer;
+		}
+		else if (!bZooming)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Not Scoping");
+			Camera->FieldOfView *= ScopeZoomMultiplyer;
+		}
 	}
 
+	if (bUsingAimDownSight)
+	{
+		bAimDownSight ? bAimDownSight = false : bAimDownSight = true;
+
+		AWeapon* Weapon = Cast<AWeapon>(GetOwner());
+		
+		APlayerController* Controller = UGameplayStatics::GetPlayerController(this, 0);
+
+		if (bAimDownSight)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "ADSing");
+
+			Controller->SetViewTargetWithBlend(Weapon->ADSCam->GetOwner(), 0.1f);
+			Camera->FieldOfView -= ZoomAmountADS;
+		}
+		else if (!bAimDownSight)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Not ADSing");
+			
+			Controller->SetViewTargetWithBlend(Camera->GetOwner(), 0.1f);
+			Camera->FieldOfView += ZoomAmountADS;
+		}
+	}
 }
 
 // Called when the game starts

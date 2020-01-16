@@ -29,9 +29,13 @@ AWeapon::AWeapon()
 	Collider->OnComponentBeginOverlap.AddDynamic(this, &AWeapon::BeginOverlap);
 }
 
-void AWeapon::OnFire()
+void AWeapon::WeaponCameraShake()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, "Fire");
+	// Camera shake
+	if (CameraShake != NULL)
+	{
+		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->PlayCameraShake(CameraShake, 1.0f);
+	}
 }
 
 // Called when the game starts or when spawned

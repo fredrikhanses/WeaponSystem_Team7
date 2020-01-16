@@ -28,13 +28,18 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		UCameraComponent* ADSCam;
+
+	// Camera shake
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<UCameraShake> CameraShake;
+
 public:
 
 	// Sets default values for this actor's properties
 	AWeapon();
 
 	UFUNCTION(BlueprintCallable)
-		void OnFire();
+		void WeaponCameraShake();
 
 protected:
 	// Called when the game starts or when spawned

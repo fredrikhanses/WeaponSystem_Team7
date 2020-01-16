@@ -17,16 +17,16 @@ public:
 	UAmmo();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
-	int maxAmmo;
+	int maxAmmo = 100;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
-	int surplusAmmo;
+	int surplusAmmo = 100;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
-	int currentAmmo;
+	int currentAmmo = 5;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
-	int clipSize;
+	int clipSize = 10;
 
 	UFUNCTION(BlueprintCallable)
 	void Reload();

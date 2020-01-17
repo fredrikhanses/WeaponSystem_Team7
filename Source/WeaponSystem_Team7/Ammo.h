@@ -6,7 +6,6 @@
 #include "Components/ActorComponent.h"
 #include "Ammo.generated.h"
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class WEAPONSYSTEM_TEAM7_API UAmmo : public UActorComponent
 {
@@ -17,6 +16,7 @@ private:
 	float OriginalClipSize;
 
 public:	
+
 	// Sets default values for this component's properties
 	UAmmo();
 
@@ -38,13 +38,17 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void UseAmmo();
 
+	UFUNCTION(BlueprintCallable)
+	bool CheckAmmo();
+
 protected:
+
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 public:	
+
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-		
+	
 };

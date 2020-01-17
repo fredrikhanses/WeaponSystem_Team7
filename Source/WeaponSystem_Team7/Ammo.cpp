@@ -16,26 +16,30 @@ UAmmo::UAmmo()
 
 void UAmmo::Reload()
 {
+	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, "Ammo Surplus");
+	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, FString::FromInt((int32)SurplusAmmo));
+	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, "Current Ammo");
+	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, FString::FromInt((int32)CurrentAmmo));
+
 	if (SurplusAmmo > 0)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, "Ammo Surplus");
-		GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, FString::FromInt((int32)SurplusAmmo));
-		GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, "Current Ammo");
-		GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, FString::FromInt((int32)CurrentAmmo));
-
 		SurplusAmmo -= ClipSize;
+
 		if (SurplusAmmo < 0)
 		{
+			ClipSize =- SurplusAmmo;
 			SurplusAmmo = 0;
 		}
+
 		SurplusAmmo += CurrentAmmo;
 		CurrentAmmo = ClipSize;
-
-		GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, "Ammo Surplus");
-		GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Emerald, FString::FromInt((int32)SurplusAmmo));
-		GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, "Current Ammo");
-		GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Emerald, FString::FromInt((int32)CurrentAmmo));
+		ClipSize = OriginalClipSize;
 	}
+
+	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, "Ammo Surplus");
+	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Emerald, FString::FromInt((int32)SurplusAmmo));
+	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, "Current Ammo");
+	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Emerald, FString::FromInt((int32)CurrentAmmo));
 }
 
 void UAmmo::UseAmmo()
@@ -44,6 +48,15 @@ void UAmmo::UseAmmo()
 	{
 		CurrentAmmo--;
 	}
+}
+
+bool UAmmo::CheckAmmo()
+{
+	if (CurrentAmmo > 0)
+	{
+		return true;
+	}
+	return false;
 }
 
 // Called when the game starts
@@ -55,7 +68,6 @@ void UAmmo::BeginPlay()
 	
 }
 
-
 // Called every frame
 void UAmmo::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
@@ -63,4 +75,3 @@ void UAmmo::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentT
 
 	// ...
 }
-

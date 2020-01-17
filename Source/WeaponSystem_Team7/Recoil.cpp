@@ -12,7 +12,6 @@ URecoil::URecoil()
 
 	InitialRecoilSteps = RecoilSteps;
 	InitialRecoverSteps = RecoverSteps;
-
 }
 
 void URecoil::StartRecoilTimer(APawn* Actor)

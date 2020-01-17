@@ -44,8 +44,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
 		float RapidFireDelay = 0.1f;
 
-	UPROPERTY(BlueprintReadOnly)
 	//True if the player can fire, false otherwise
+	UPROPERTY(BlueprintReadOnly)
 	bool bCanFire;
 
 private:

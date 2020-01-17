@@ -56,15 +56,14 @@ private:
 	//Resets the players ability to fire
 	void ResetFire();
 
+	void OnFire();
+
 public:
 	// Sets default values for this component's properties
 	UFireMode_Shotgun();
 
 	UFUNCTION(BlueprintCallable)
-	void RapidFire();
-
-	UFUNCTION(BlueprintCallable)
-	void Fire();
+	void Fire();	
 
 protected:
 	// Called when the game starts

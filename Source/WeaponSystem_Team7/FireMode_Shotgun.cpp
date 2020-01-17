@@ -35,16 +35,16 @@ void UFireMode_Shotgun::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-void UFireMode_Shotgun::RapidFire()
+void UFireMode_Shotgun::Fire()
 {
 	if (bCanFire)
 	{
-		GetWorld()->GetTimerManager().SetTimer(RapidFireTimerHandle, this, &UFireMode_Shotgun::Fire, RapidFireDelay, true);
+		GetWorld()->GetTimerManager().SetTimer(RapidFireTimerHandle, this, &UFireMode_Shotgun::OnFire, RapidFireDelay, true);
 		bCanFire = false;
 	}
 }
 
-void UFireMode_Shotgun::Fire()
+void UFireMode_Shotgun::OnFire()
 {
 	if (--RapidFireShots <= 0)
 	{

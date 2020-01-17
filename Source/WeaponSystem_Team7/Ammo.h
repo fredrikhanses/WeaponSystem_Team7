@@ -12,24 +12,31 @@ class WEAPONSYSTEM_TEAM7_API UAmmo : public UActorComponent
 {
 	GENERATED_BODY()
 
+private:
+	
+	float OriginalClipSize;
+
 public:	
 	// Sets default values for this component's properties
 	UAmmo();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
-	int maxAmmo = 100;
+	int MaxAmmo = 100;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
-	int surplusAmmo = 100;
+	int SurplusAmmo = 100;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
-	int currentAmmo = 5;
+	int CurrentAmmo = 5;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
-	int clipSize = 10;
+	int ClipSize = 10;
 
 	UFUNCTION(BlueprintCallable)
 	void Reload();
+
+	UFUNCTION(BlueprintCallable)
+	void UseAmmo();
 
 protected:
 	// Called when the game starts

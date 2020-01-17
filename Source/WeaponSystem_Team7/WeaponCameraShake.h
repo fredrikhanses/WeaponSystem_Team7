@@ -15,4 +15,28 @@ public:
 
 	UWeaponCameraShake();
 
+	UPROPERTY(EditAnywhere, Category = "Pitch")
+	float MinPitchAmplitude;
+
+	UPROPERTY(EditAnywhere, Category = "Pitch")
+	float MaxPitchAmplitude;
+
+	UPROPERTY(EditAnywhere, Category = "Pitch")
+	float MinPitchFrequency;
+
+	UPROPERTY(EditAnywhere, Category = "Pitch")
+	float MaxPitchFrequency;
+	
+	UPROPERTY(EditAnywhere, Category = "Yaw")
+	float MinYawAmplitude;
+
+	UPROPERTY(EditAnywhere, Category = "Yaw")
+	float MaxYawAmplitude;
+
+	UPROPERTY(EditAnywhere, Category = "Yaw")
+	float MinYawFrequency;
+
+	UPROPERTY(EditAnywhere, Category = "Yaw")
+	float MaxYawFrequency;
+
 };

@@ -15,9 +15,6 @@ class WEAPONSYSTEM_TEAM7_API UFireMode_Shotgun : public UActorComponent
 
 private:
 
-	//True if the player can fire, false otherwise
-	bool bCanFire;
-
 	int BurstCount = 0;
 	int InitRapidFireShots;
 
@@ -30,22 +27,26 @@ private:
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
-		float Spread=10;
+		float Spread = 10;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
-		float Range=750;
+		float Range = 750;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
-		int PebbleAmount=10;
+		int PebbleAmount = 10;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
-		float FireRate=1;
+		float FireRate = 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
 		int RapidFireShots = 5;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
 		float RapidFireDelay = 0.1f;
+
+	UPROPERTY(BlueprintReadOnly)
+	//True if the player can fire, false otherwise
+	bool bCanFire;
 
 private:
 	void Instant_Fire();
@@ -63,7 +64,7 @@ public:
 	void RapidFire();
 
 	UFUNCTION(BlueprintCallable)
-		void Fire();
+	void Fire();
 
 protected:
 	// Called when the game starts

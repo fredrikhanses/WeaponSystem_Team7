@@ -17,7 +17,7 @@ public:
 	UZoom();
 
 	UFUNCTION(BlueprintCallable)
-	void ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, float ZoomAmountADS, bool bWeaponHasScope);		
+	void ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, bool bWeaponHasScope);		
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UCameraComponent* ADSCam;

@@ -21,7 +21,7 @@ UZoom::UZoom()
 }
 
 
-void UZoom::ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, float ZoomAmountADS, bool bWeaponHasScope)
+void UZoom::ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, bool bWeaponHasScope)
 {
 	if (bWeaponHasScope) { bUsingZooming = true; }
 	else if (!bWeaponHasScope) { bUsingAimDownSight = true; }
@@ -35,16 +35,20 @@ void UZoom::ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, floa
 
 		if (bZooming)
 		{
-			// Add HUD graphic (like a scope) to viewport.
+			// Show HUD graphic (like a scope).
 
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Scoping");
-			Camera->FieldOfView /= ScopeZoomMultiplyer;
+			Weapon->ADSCam->FieldOfView /= ScopeZoomMultiplyer;
+			Controller->SetViewTargetWithBlend(Weapon->ADSCam->GetOwner(), 0.1f);
 			
 		}
 		else if (!bZooming)
 		{
+			// Hide HUD graphic (like a scope).
+
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Not Scoping");
-			Camera->FieldOfView *= ScopeZoomMultiplyer;
+			Weapon->ADSCam->FieldOfView *= ScopeZoomMultiplyer;
+			Controller->SetViewTargetWithBlend(Camera->GetOwner(), 0.1f);
 		}
 	}
 
@@ -55,16 +59,12 @@ void UZoom::ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, floa
 		if (bAimDownSight)
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "ADSing");
-
 			Controller->SetViewTargetWithBlend(Weapon->ADSCam->GetOwner(), 0.1f);
-			Camera->FieldOfView -= ZoomAmountADS;
 		}
 		else if (!bAimDownSight)
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Not ADSing");
-			
 			Controller->SetViewTargetWithBlend(Camera->GetOwner(), 0.1f);
-			Camera->FieldOfView += ZoomAmountADS;
 		}
 	}
 }

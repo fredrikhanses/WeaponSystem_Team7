@@ -5,10 +5,11 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Engine/EngineTypes.h"
+#include "ModuleBase.h"
 #include "Recoil.generated.h"
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class WEAPONSYSTEM_TEAM7_API URecoil : public UModuleBaseComponent
+class WEAPONSYSTEM_TEAM7_API URecoil : public UModuleBase
 {
 	GENERATED_BODY()
 

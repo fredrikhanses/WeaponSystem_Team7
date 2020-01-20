@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "ModuleBase.h"
 #include "Ammo.generated.h"
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class WEAPONSYSTEM_TEAM7_API UAmmo : public UModuleBaseComponent
+class WEAPONSYSTEM_TEAM7_API UAmmo : public UModuleBase
 {
 	GENERATED_BODY()
 

@@ -59,6 +59,14 @@ bool UAmmo::CheckAmmo()
 	return false;
 }
 
+void UAmmo::Execute()
+{
+	if (CheckAmmo())
+	{
+		UseAmmo();
+	}
+}
+
 // Called when the game starts
 void UAmmo::BeginPlay()
 {

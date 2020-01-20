@@ -14,28 +14,28 @@ URecoil::URecoil()
 	InitialRecoverSteps = RecoverSteps;
 }
 
-void URecoil::StartRecoilTimer(APawn* Actor)
+void URecoil::StartRecoilTimer(APawn* Pawn)
 {
 	RandomRecoilYaw = FMath::RandRange(RandomRecoilYawMin, RandomRecoilYawMax);
 
 	FTimerDelegate RecoilDelegate;
 
-	RecoilDelegate.BindUFunction(this, FName("Recoil"), Actor);
+	RecoilDelegate.BindUFunction(this, FName("Recoil"), Pawn);
 
 	GetWorld()->GetTimerManager().SetTimer(RecoilTimerHandle, RecoilDelegate, Smoothness, true);
 }
 
-void URecoil::Recoil(APawn* Actor)
+void URecoil::Recoil(APawn* Pawn)
 {
 	if (--RecoilSteps <= 0)
 	{
 		StopRecoilTimer();
 
-		StartRecoverTimer(Actor);
+		StartRecoverTimer(Pawn);
 	}
 
-	Actor->AddControllerPitchInput(-1 * RecoilStrength);
-	Actor->AddControllerYawInput(-1 * RandomRecoilYaw);
+	Pawn->AddControllerPitchInput(-1 * RecoilStrength);
+	Pawn->AddControllerYawInput(-1 * RandomRecoilYaw);
 }
 
 void URecoil::StopRecoilTimer()
@@ -44,29 +44,33 @@ void URecoil::StopRecoilTimer()
 	GetWorld()->GetTimerManager().ClearTimer(RecoilTimerHandle);
 }
 
-void URecoil::StartRecoverTimer(APawn* Actor)
+void URecoil::StartRecoverTimer(APawn* Pawn)
 {
 	FTimerDelegate RecoverDelegate;
 
-	RecoverDelegate.BindUFunction(this, FName("Recover"), Actor);
+	RecoverDelegate.BindUFunction(this, FName("Recover"), Pawn);
 
 	GetWorld()->GetTimerManager().SetTimer(RecoverTimerHandle, RecoverDelegate, Smoothness, true);
 }
 
-void URecoil::Recover(APawn* Actor)
+void URecoil::Recover(APawn* Pawn)
 {
 	if (--RecoverSteps <= 0)
 	{
 		StopRecoverTimer();
 	}
-
-	Actor->AddControllerPitchInput(RecoverStrength);
+	Pawn->AddControllerPitchInput(RecoverStrength);
 }
 
 void URecoil::StopRecoverTimer()
 {
 	RecoverSteps = InitialRecoverSteps;
 	GetWorld()->GetTimerManager().ClearTimer(RecoverTimerHandle);
+}
+
+void URecoil::Execute(APawn* Pawn)
+{
+	StartRecoilTimer(Pawn);
 }
 
 // Called when the game starts

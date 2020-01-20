@@ -41,6 +41,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool CheckAmmo();
 
+	UFUNCTION(BlueprintCallable)
+	void Execute();
+
 protected:
 
 	// Called when the game starts

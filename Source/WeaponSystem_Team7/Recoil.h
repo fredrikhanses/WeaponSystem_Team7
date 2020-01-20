@@ -53,20 +53,23 @@ public:
 
 	// Recoil
 	UFUNCTION(BlueprintCallable)
-	void StartRecoilTimer(APawn* Actor);
+	void StartRecoilTimer(APawn* Pawn);
 
 	UFUNCTION()
-	void Recoil(APawn* Actor);
+	void Recoil(APawn* Pawn);
 
 	void StopRecoilTimer();
 
 	// Recover
-	void StartRecoverTimer(APawn* Actor);
+	void StartRecoverTimer(APawn* Pawn);
 
 	UFUNCTION()
-	void Recover(APawn* Actor);
+	void Recover(APawn* Pawn);
 
 	void StopRecoverTimer();
+
+	UFUNCTION(BlueprintCallable)
+	void Execute(APawn* Pawn);
 
 protected:
 

@@ -27,7 +27,7 @@ private:
 
 public:
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int BurstCount = 3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)

@@ -6,6 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "Engine/EngineTypes.h"
 #include "ModuleBase.h"
+#include <Camera/CameraShake.h>
 #include "Recoil.generated.h"
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -18,9 +19,12 @@ private:
 	FTimerHandle TimerHandle;
 
 	int InitialRecoilSteps;
+
 	int InitialRecoverSteps;
 
 	float RandomRecoilYaw;
+
+	void StartRecoilTimer();
 
 	void GenerateYawAmount();
 
@@ -36,18 +40,30 @@ private:
 
 	void StopRecoverTimer();
 
+	void WeaponCameraShake();
+
 public:
 
 	URecoil();
 
+	// Camera shake
+	UPROPERTY(EditAnywhere, Category = "Camera Shake")
+	TSubclassOf<UCameraShake> CameraShake;
+
 	UPROPERTY(EditAnywhere, Category = "Recoil")
 	APawn* Pawn;
 
-	UPROPERTY(EditAnywhere, Category = "Recoil")
+	UPROPERTY(EditAnywhere)
 	float RecoilStrength = 0.5f;
 
-	UPROPERTY(EditAnywhere, Category = "Recoil")
+	UPROPERTY(EditAnywhere)
 	int RecoilSteps = 10.0f;
+
+	UPROPERTY(EditAnywhere)
+	float RandomRecoilYawMin = -0.3f;
+
+	UPROPERTY(EditAnywhere)
+	float RandomRecoilYawMax = 0.3f;
 
 	UPROPERTY(EditAnywhere, Category = "Recoil & Recover")
 	float Smoothness = 0.01f;
@@ -58,17 +74,11 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Recover")
 	int RecoverSteps = 10.0f;
 
-	UPROPERTY(EditAnywhere, Category = "Random Yaw")
-	float RandomRecoilYawMin = -0.3f;
-	
-	UPROPERTY(EditAnywhere, Category = "Random Yaw")
-	float RandomRecoilYawMax = 0.3f;
-
-	UFUNCTION(BlueprintCallable)
-	void StartRecoilTimer();
-
 	UFUNCTION(BlueprintCallable)
 	void SetPawn(APawn* InPawn);
+
+	UFUNCTION(BlueprintCallable)
+	void SetCameraShake(TSubclassOf<UCameraShake> InCameraShake);
 
 	UFUNCTION(BlueprintCallable)
 	void Execute();

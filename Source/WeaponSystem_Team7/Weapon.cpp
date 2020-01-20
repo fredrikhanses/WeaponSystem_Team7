@@ -31,15 +31,6 @@ AWeapon::AWeapon()
 	Collider->OnComponentBeginOverlap.AddDynamic(this, &AWeapon::BeginOverlap);
 }
 
-void AWeapon::WeaponCameraShake()
-{
-	// Camera shake
-	if (CameraShake != nullptr)
-	{
-		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->PlayCameraShake(CameraShake, 1.0f);
-	}
-}
-
 // Called when the game starts or when spawned
 void AWeapon::BeginPlay()
 {
@@ -50,7 +41,6 @@ void AWeapon::BeginPlay()
 void AWeapon::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void AWeapon::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

@@ -20,16 +20,16 @@ public:
 
 	UAmmo();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
+	UPROPERTY(EditAnywhere, Category = "Ammo")
 	int MaxAmmo = 100;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
+	UPROPERTY(EditAnywhere)
 	int SurplusAmmo = 100;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int CurrentAmmo = 5;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
+	UPROPERTY(EditAnywhere)
 	int ClipSize = 10;
 
 	UFUNCTION(BlueprintCallable)

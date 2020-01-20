@@ -13,10 +13,9 @@ URecoil::URecoil()
 
 void URecoil::StartRecoilTimer()
 {
-	if (Pawn)
+	if (Pawn != nullptr)
 	{
 		GenerateYawAmount();
-
 		GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &URecoil::Recoil, Smoothness, true);
 	}
 }
@@ -29,6 +28,11 @@ void URecoil::GenerateYawAmount()
 void URecoil::SetPawn(APawn* InPawn)
 {
 	Pawn = InPawn;
+}
+
+void URecoil::SetCameraShake(TSubclassOf<UCameraShake> InCameraShake)
+{
+	CameraShake = InCameraShake;
 }
 
 void URecoil::Recoil()
@@ -68,9 +72,18 @@ void URecoil::StopRecoverTimer()
 	GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
 }
 
+void URecoil::WeaponCameraShake()
+{
+	if (CameraShake != nullptr)
+	{
+		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->PlayCameraShake(CameraShake, 1.0f);
+	}
+}
+
 void URecoil::Execute()
 {
 	StartRecoilTimer();
+	WeaponCameraShake();
 }
 
 void URecoil::BeginPlay()

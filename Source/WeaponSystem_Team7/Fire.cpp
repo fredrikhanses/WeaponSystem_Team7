@@ -14,11 +14,37 @@ void UFire::BeginPlay()
 
 	InitialBurstCount = BurstCount;
 	bCanFire = true;
+
+
+
+	//Prevents parameters from being 0
+	if (BurstCount<1)
+	{
+		BurstCount = 1;
+	}
+
+	if (BurstDelay<0.01f)
+	{
+		BurstDelay = 0.01f;
+	}
+
+	if (FireRate<0.01f)
+	{
+		FireRate = 0.01f;
+	}
+}
+
+void UFire::Execute()
+{
+
 }
 
 void UFire::OnFire(TArray<UModuleBase*> ModuleArray)
 {
-	Array = ModuleArray;
+	if (Array.Num() == 0)
+	{
+		Array = ModuleArray;
+	}
 
 	if (bCanFire)
 	{
@@ -28,9 +54,7 @@ void UFire::OnFire(TArray<UModuleBase*> ModuleArray)
 	}
 }
 
-void UFire::Execute()
-{
-}
+
 
 
 void UFire::StartFire()

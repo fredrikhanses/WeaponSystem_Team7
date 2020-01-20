@@ -3,37 +3,41 @@
 #include "Recoil.h"
 #include "Engine/World.h"
 
-// Sets default values for this component's properties
 URecoil::URecoil()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
 	InitialRecoilSteps = RecoilSteps;
 	InitialRecoverSteps = RecoverSteps;
 }
 
-void URecoil::StartRecoilTimer(APawn* Pawn)
+void URecoil::StartRecoilTimer()
 {
-	RandomRecoilYaw = FMath::RandRange(RandomRecoilYawMin, RandomRecoilYawMax);
+	if (Pawn)
+	{
+		GenerateYawAmount();
 
-	FTimerDelegate RecoilDelegate;
-
-	RecoilDelegate.BindUFunction(this, FName("Recoil"), Pawn);
-
-	GetWorld()->GetTimerManager().SetTimer(RecoilTimerHandle, RecoilDelegate, Smoothness, true);
+		GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &URecoil::Recoil, Smoothness, true);
+	}
 }
 
-void URecoil::Recoil(APawn* Pawn)
+void URecoil::GenerateYawAmount()
+{
+	RandomRecoilYaw = FMath::RandRange(RandomRecoilYawMin, RandomRecoilYawMax);
+}
+
+void URecoil::SetPawn(APawn* InPawn)
+{
+	Pawn = InPawn;
+}
+
+void URecoil::Recoil()
 {
 	if (--RecoilSteps <= 0)
 	{
 		StopRecoilTimer();
-
-		StartRecoverTimer(Pawn);
+		StartRecoverTimer();
 	}
-
 	Pawn->AddControllerPitchInput(-1 * RecoilStrength);
 	Pawn->AddControllerYawInput(-1 * RandomRecoilYaw);
 }
@@ -41,19 +45,15 @@ void URecoil::Recoil(APawn* Pawn)
 void URecoil::StopRecoilTimer()
 {
 	RecoilSteps = InitialRecoilSteps;
-	GetWorld()->GetTimerManager().ClearTimer(RecoilTimerHandle);
+	GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
 }
 
-void URecoil::StartRecoverTimer(APawn* Pawn)
+void URecoil::StartRecoverTimer()
 {
-	FTimerDelegate RecoverDelegate;
-
-	RecoverDelegate.BindUFunction(this, FName("Recover"), Pawn);
-
-	GetWorld()->GetTimerManager().SetTimer(RecoverTimerHandle, RecoverDelegate, Smoothness, true);
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &URecoil::Recover, Smoothness, true);
 }
 
-void URecoil::Recover(APawn* Pawn)
+void URecoil::Recover()
 {
 	if (--RecoverSteps <= 0)
 	{
@@ -65,21 +65,19 @@ void URecoil::Recover(APawn* Pawn)
 void URecoil::StopRecoverTimer()
 {
 	RecoverSteps = InitialRecoverSteps;
-	GetWorld()->GetTimerManager().ClearTimer(RecoverTimerHandle);
+	GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
 }
 
-void URecoil::Execute(APawn* Pawn)
+void URecoil::Execute()
 {
-	StartRecoilTimer(Pawn);
+	StartRecoilTimer();
 }
 
-// Called when the game starts
 void URecoil::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
-// Called every frame
 void URecoil::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);

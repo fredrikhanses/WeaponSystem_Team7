@@ -13,12 +13,11 @@ class WEAPONSYSTEM_TEAM7_API UZoom : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
-	// Sets default values for this component's properties
+public:
 	UZoom();
 
 	UFUNCTION(BlueprintCallable)
-	void ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, float ZoomAmountADS, bool bWeaponHasScope);		
+	void ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, bool bWeaponHasScope);		
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UCameraComponent* ADSCam;

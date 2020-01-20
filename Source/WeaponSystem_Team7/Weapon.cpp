@@ -14,6 +14,7 @@ AWeapon::AWeapon()
 	PrimaryActorTick.bCanEverTick = true;
 	
 	ADSCam = CreateDefaultSubobject<UCameraComponent>(TEXT("ADSCamera"));
+	ADSCam->SetRelativeLocationAndRotation(FVector(0.0f, 10.0f, 24.0f), FRotator(0.0f, 89.5f, 0.0f)); // Setting default location/rotation
 
 	USceneComponent* Scene = CreateDefaultSubobject<USceneComponent>("Root");
 	RootComponent = Scene;
@@ -25,6 +26,7 @@ AWeapon::AWeapon()
 	Collider->SetupAttachment(Mesh);
 	
 	ADSCam->SetupAttachment(RootComponent);
+	
 	
 	Collider->OnComponentBeginOverlap.AddDynamic(this, &AWeapon::BeginOverlap);
 }
@@ -41,8 +43,7 @@ void AWeapon::WeaponCameraShake()
 // Called when the game starts or when spawned
 void AWeapon::BeginPlay()
 {
-	Super::BeginPlay();
-	
+	Super::BeginPlay();	
 }
 
 // Called every frame

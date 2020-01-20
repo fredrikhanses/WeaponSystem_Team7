@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "ModuleBase.h"
 #include "Ammo.generated.h"
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class WEAPONSYSTEM_TEAM7_API UAmmo : public UActorComponent
+class WEAPONSYSTEM_TEAM7_API UAmmo : public UModuleBase
 {
 	GENERATED_BODY()
 
@@ -17,7 +18,6 @@ private:
 
 public:	
 
-	// Sets default values for this component's properties
 	UAmmo();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
@@ -46,12 +46,10 @@ public:
 
 protected:
 
-	// Called when the game starts
 	virtual void BeginPlay() override;
 
 public:	
 
-	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
 };

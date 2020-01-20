@@ -29,10 +29,16 @@ void UFireMode::OnFire()
 	{
 
 	case WeaponType::LineTrace:
-
-		for (int i = 0; i < PebbleAmount; i++)
+		if (PebbleAmount<1)
 		{
-			Instant_Fire();
+			GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, "You need to set PebbleAmount to more than 0!");
+		}
+		else
+		{
+			for (int i = 0; i < PebbleAmount; i++)
+			{
+				Instant_Fire();
+			}
 		}
 		break;
 

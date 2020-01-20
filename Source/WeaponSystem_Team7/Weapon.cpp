@@ -34,7 +34,7 @@ AWeapon::AWeapon()
 void AWeapon::WeaponCameraShake()
 {
 	// Camera shake
-	if (CameraShake != NULL)
+	if (CameraShake != nullptr)
 	{
 		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->PlayCameraShake(CameraShake, 1.0f);
 	}

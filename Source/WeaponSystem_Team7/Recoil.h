@@ -5,29 +5,43 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Engine/EngineTypes.h"
+#include "ModuleBase.h"
 #include "Recoil.generated.h"
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class WEAPONSYSTEM_TEAM7_API URecoil : public UActorComponent
+class WEAPONSYSTEM_TEAM7_API URecoil : public UModuleBase
 {
 	GENERATED_BODY()
 
-	DECLARE_DELEGATE_OneParam(TimerDelegate, APawn*)
-
 private:
 
-	FTimerHandle RecoilTimerHandle;
-	FTimerHandle RecoverTimerHandle;
+	FTimerHandle TimerHandle;
 
 	int InitialRecoilSteps;
 	int InitialRecoverSteps;
 
 	float RandomRecoilYaw;
 
+	void GenerateYawAmount();
+
+	UFUNCTION()
+	void Recoil();
+
+	void StopRecoilTimer();
+
+	void StartRecoverTimer();
+
+	UFUNCTION()
+	void Recover();
+
+	void StopRecoverTimer();
+
 public:
 
-	// Sets default values for this component's properties
 	URecoil();
+
+	UPROPERTY(EditAnywhere, Category = "Recoil")
+	APawn* Pawn;
 
 	UPROPERTY(EditAnywhere, Category = "Recoil")
 	float RecoilStrength = 0.5f;
@@ -39,46 +53,32 @@ public:
 	float Smoothness = 0.01f;
 
 	UPROPERTY(EditAnywhere, Category = "Recover")
-	float RecoverStrength = 0.5f;
+	float RecoverStrength = 0.25f;
 
 	UPROPERTY(EditAnywhere, Category = "Recover")
 	int RecoverSteps = 10.0f;
 
-	//Random Yaw
 	UPROPERTY(EditAnywhere, Category = "Random Yaw")
 	float RandomRecoilYawMin = -0.3f;
 	
 	UPROPERTY(EditAnywhere, Category = "Random Yaw")
 	float RandomRecoilYawMax = 0.3f;
 
-	// Recoil
 	UFUNCTION(BlueprintCallable)
-	void StartRecoilTimer(APawn* Pawn);
-
-	UFUNCTION()
-	void Recoil(APawn* Pawn);
-
-	void StopRecoilTimer();
-
-	// Recover
-	void StartRecoverTimer(APawn* Pawn);
-
-	UFUNCTION()
-	void Recover(APawn* Pawn);
-
-	void StopRecoverTimer();
+	void StartRecoilTimer();
 
 	UFUNCTION(BlueprintCallable)
-	void Execute(APawn* Pawn);
+	void SetPawn(APawn* InPawn);
+
+	UFUNCTION(BlueprintCallable)
+	void Execute();
 
 protected:
 
-	// Called when the game starts
 	virtual void BeginPlay() override;
 
 public:	
 
-	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 };

@@ -26,6 +26,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Mesh")
 		USkeletalMeshComponent* Mesh;
 
+	// ADS Camera (for when using Zoom component)
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		UCameraComponent* ADSCam;
 

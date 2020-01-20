@@ -13,8 +13,7 @@ class WEAPONSYSTEM_TEAM7_API UZoom : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
-	// Sets default values for this component's properties
+public:
 	UZoom();
 
 	UFUNCTION(BlueprintCallable)

@@ -25,6 +25,9 @@ void UZoom::ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, floa
 {
 	if (bWeaponHasScope) { bUsingZooming = true; }
 	else if (!bWeaponHasScope) { bUsingAimDownSight = true; }
+	
+	AWeapon* Weapon = Cast<AWeapon>(GetOwner());		
+	APlayerController* Controller = UGameplayStatics::GetPlayerController(this, 0);
 		
 	if (bUsingZooming)
 	{
@@ -32,10 +35,11 @@ void UZoom::ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, floa
 
 		if (bZooming)
 		{
-			// Add scope widget to view port
+			// Add HUD graphic (like a scope) to viewport.
 
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Scoping");
 			Camera->FieldOfView /= ScopeZoomMultiplyer;
+			
 		}
 		else if (!bZooming)
 		{
@@ -47,10 +51,6 @@ void UZoom::ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, floa
 	if (bUsingAimDownSight)
 	{
 		bAimDownSight ? bAimDownSight = false : bAimDownSight = true;
-
-		AWeapon* Weapon = Cast<AWeapon>(GetOwner());
-		
-		APlayerController* Controller = UGameplayStatics::GetPlayerController(this, 0);
 
 		if (bAimDownSight)
 		{

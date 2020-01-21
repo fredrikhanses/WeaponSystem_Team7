@@ -27,7 +27,6 @@ AWeapon::AWeapon()
 	
 	ADSCam->SetupAttachment(RootComponent);
 	
-	
 	Collider->OnComponentBeginOverlap.AddDynamic(this, &AWeapon::BeginOverlap);
 }
 
@@ -49,8 +48,14 @@ void AWeapon::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 
 	AWeaponSystem_Team7Character* character = Cast<AWeaponSystem_Team7Character>(OtherActor);
 
-	AttachToComponent(character->GetMesh1P(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, "GripPoint");
-	character->Weapon = this;
-	Collider->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-}
+	if (character->Weapon.Num() > 0)
+	{
+		SetActorHiddenInGame(true);
+	}
 
+	AttachToComponent(character->GetMesh1P(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, "GripPoint");
+	character->Weapon.Add(this);
+	character->CurrentWeapon = character->Weapon[character->Weapon.Num()-1];
+	Collider->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+}

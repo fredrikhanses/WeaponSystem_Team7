@@ -15,9 +15,12 @@ class AWeaponSystem_Team7Character : public ACharacter
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = Weapon)
+		TArray<AWeapon*> Weapon;
 
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = Weapon)
-		class AWeapon* Weapon;
+		UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = Weapon)
+		class AWeapon* CurrentWeapon;
+
 
 	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)

@@ -13,6 +13,22 @@ class WEAPONSYSTEM_TEAM7_API USkinToggle : public UModuleBase
 {
 	GENERATED_BODY()
 	
+private:
+
+	USkeletalMeshComponent* Mesh;
+
+public:
+
+	UPROPERTY(EditAnywhere, Category = Material)
+	UMaterial* Material;
+
+	UPROPERTY(EditAnywhere, Category = Mesh)
+	USkeletalMesh* SkeletalMesh;
+
+protected:
+
+	virtual void BeginPlay() override;
+
 public:
 
 	USkinToggle();
@@ -23,14 +39,9 @@ public:
 	void SetMaterial(UMaterial* InMaterial);
 
 	UFUNCTION(BlueprintCallable)
-	void SetMesh(USkeletalMeshComponent* InMesh);
+	void SetMesh(USkeletalMesh* InMesh);
 
 	UFUNCTION(BlueprintCallable)
 	void Toggle();
 
-	UPROPERTY(EditAnywhere, Category = Material)
-	UMaterial* Material;
-
-	UPROPERTY(EditAnywhere, Category = Mesh)
-	USkeletalMeshComponent* Mesh;
 };

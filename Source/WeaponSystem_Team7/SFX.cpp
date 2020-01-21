@@ -3,6 +3,7 @@
 
 #include "SFX.h"
 #include <Kismet/GameplayStatics.h>
+#include <Engine/Engine.h>
 
 USFX::USFX()
 {
@@ -23,7 +24,14 @@ void USFX::Execute()
 
 void USFX::OnFire()
 {
-	CreateSound();
+	if (FireSound == nullptr)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, "You need to set a Sound!");
+	}
+	else
+	{
+		CreateSound();
+	}
 }
 
 void USFX::CreateSound()

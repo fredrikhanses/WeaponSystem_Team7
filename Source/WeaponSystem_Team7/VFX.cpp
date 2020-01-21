@@ -3,6 +3,7 @@
 
 #include "VFX.h"
 #include <Kismet/GameplayStatics.h>
+#include <Engine/Engine.h>
 
 UVFX::UVFX()
 {
@@ -22,7 +23,14 @@ void UVFX::Execute()
 
 void UVFX::OnFire()
 {
-	CreateVFX();
+	if (EmitterTemplate==nullptr)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, "You need to set a VFX!");
+	}
+	else
+	{
+		CreateVFX();
+	}
 }
 
 void UVFX::CreateVFX()

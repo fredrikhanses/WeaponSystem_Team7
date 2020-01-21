@@ -11,6 +11,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
+#include <Engine/Engine.h>
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -297,4 +298,21 @@ bool AWeaponSystem_Team7Character::EnableTouchscreenMovement(class UInputCompone
 	}
 	
 	return false;
+}
+
+void AWeaponSystem_Team7Character::ChangeWeapon(int index)
+{
+	if (CurrentWeapon==nullptr)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, "You don't have a weapon!");
+	}
+	else
+	{
+		if (index<=Weapon.Num()-1)
+		{
+			CurrentWeapon->SetActorHiddenInGame(true);
+			CurrentWeapon = Weapon[index];
+			CurrentWeapon->SetActorHiddenInGame(false);
+		}
+	}
 }

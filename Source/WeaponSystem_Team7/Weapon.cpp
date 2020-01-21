@@ -48,14 +48,10 @@ void AWeapon::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 
 	AWeaponSystem_Team7Character* character = Cast<AWeaponSystem_Team7Character>(OtherActor);
 
-	if (character->Weapon.Num() > 0)
-	{
-		SetActorHiddenInGame(true);
-	}
-
 	AttachToComponent(character->GetMesh1P(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, "GripPoint");
+	Collider->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	SetActorHiddenInGame(true);
 	character->Weapon.Add(this);
 	character->CurrentWeapon = character->Weapon[character->Weapon.Num()-1];
-	Collider->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-
+	character->CurrentWeapon->SetActorHiddenInGame(false);
 }

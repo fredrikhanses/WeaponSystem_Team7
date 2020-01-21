@@ -18,17 +18,17 @@ void UFire::BeginPlay()
 
 
 	//Prevents parameters from being 0
-	if (BurstCount<1)
+	if (BurstCount < 1)
 	{
 		BurstCount = 1;
 	}
 
-	if (BurstDelay<0.01f)
+	if (BurstDelay < 0.01f)
 	{
 		BurstDelay = 0.01f;
 	}
 
-	if (FireRate<0.01f)
+	if (FireRate < 0.01f)
 	{
 		FireRate = 0.01f;
 	}
@@ -48,6 +48,13 @@ void UFire::OnFire(TArray<UModuleBase*> ModuleArray)
 
 	if (bCanFire)
 	{
+		for (auto modules : Array)
+		{
+			modules->Execute();
+		}
+
+		--BurstCount;
+
 		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &UFire::StartFire, BurstDelay, true);
 
 		bCanFire = false;

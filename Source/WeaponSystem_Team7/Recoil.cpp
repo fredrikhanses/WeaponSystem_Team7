@@ -22,7 +22,7 @@ void URecoil::StartRecoilTimer()
 
 void URecoil::GenerateYawAmount()
 {
-	RandomRecoilYaw = FMath::RandRange(RandomRecoilYawMin, RandomRecoilYawMax);
+	RandomRecoilYaw = FMath::RandRange(-1 * RandomRecoilYawLeftMax, RandomRecoilYawRightMax);
 }
 
 void URecoil::SetPawn(APawn* InPawn)

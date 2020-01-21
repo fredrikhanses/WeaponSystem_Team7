@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "ModuleBase.h"
 #include <Animation/AnimMontage.h>
+#include <Animation/AnimInstance.h>
+#include <Components/SkeletalMeshComponent.h>
 #include "KickBack.generated.h"
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
@@ -32,7 +34,7 @@ public:
 	UAnimMontage* FireAnimation;
 
 	UPROPERTY(EditAnywhere, Category = "Mesh")
-	USkeletalMeshComponent* WeaponMesh;
+	USkeletalMeshComponent* Mesh;
 
 private:
 

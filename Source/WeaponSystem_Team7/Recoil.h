@@ -60,10 +60,10 @@ public:
 	int RecoilSteps = 10.0f;
 
 	UPROPERTY(EditAnywhere)
-	float RandomRecoilYawMin = -0.3f;
+	float RandomRecoilYawLeftMax = 0.3f;
 
 	UPROPERTY(EditAnywhere)
-	float RandomRecoilYawMax = 0.3f;
+	float RandomRecoilYawRightMax = 0.3f;
 
 	UPROPERTY(EditAnywhere, Category = "Recoil & Recover")
 	float Smoothness = 0.01f;

@@ -47,23 +47,24 @@ void UFire::OnFire(TArray<UModuleBase*> ModuleArray)
 		Array = ModuleArray;
 	}
 
-	if (bCanFire)
+	for (auto modules : Array)
 	{
-		for (auto modules : Array)
+		if (UAmmo* TempAmmo = Cast<UAmmo>(modules))
 		{
-			modules->Execute();
+			Ammo = TempAmmo;
+			CurrentAmmo = Ammo->CurrentAmmo;
 		}
+	}
 
-		--BurstCount;
-
-		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &UFire::StartFire, BurstDelay, true);
-
-		bCanFire = false;
+	if (bAutomaticWeapon)
+	{
+		GetWorld()->GetTimerManager().SetTimer(AutofireTimerHandle, this, &UFire::Autofire, FireRate, bAutofire);
+	}
+	else
+	{
+		Instant_Fire();
 	}
 }
-
-
-
 
 void UFire::StartFire()
 {
@@ -87,5 +88,45 @@ void UFire::ResetFire()
 {
 	bCanFire = true;
 	GetWorld()->GetTimerManager().ClearTimer(FireDelayTimerHandle);
+}
+
+void UFire::Instant_Fire()
+{
+	if (bCanFire)
+	{
+		for (auto modules : Array)
+		{
+			modules->Execute();
+		}
+
+		--BurstCount;
+
+		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &UFire::StartFire, BurstDelay, true);
+
+		bCanFire = false;
+	}
+}
+
+void UFire::Autofire()
+{
+	for (auto modules : Array)
+	{
+		modules->Execute();
+	}
+
+	if (Ammo)
+	{
+		CurrentAmmo--;
+	}
+
+	if (CurrentAmmo<=0)
+	{
+		bAutofire = false;
+	}
+
+	if (bAutofire == false)
+	{
+		GetWorld()->GetTimerManager().ClearTimer(AutofireTimerHandle);
+	}
 }
 

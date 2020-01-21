@@ -52,6 +52,6 @@ void AWeapon::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 	Collider->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	SetActorHiddenInGame(true);
 	character->Weapon.Add(this);
-	character->CurrentWeapon = character->Weapon[character->Weapon.Num()-1];
+	character->CurrentWeapon = character->Weapon[0];
 	character->CurrentWeapon->SetActorHiddenInGame(false);
 }

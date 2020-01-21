@@ -296,23 +296,21 @@ bool AWeaponSystem_Team7Character::EnableTouchscreenMovement(class UInputCompone
 		//PlayerInputComponent->BindTouch(EInputEvent::IE_Repeat, this, &AWeaponSystem_Team7Character::TouchUpdate);
 		return true;
 	}
-	
+
 	return false;
 }
 
 void AWeaponSystem_Team7Character::ChangeWeapon(int index)
 {
-	if (CurrentWeapon==nullptr)
+	if (CurrentWeapon == nullptr)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, "You don't have a weapon!");
 	}
 	else
 	{
-		if (index<=Weapon.Num()-1)
-		{
-			CurrentWeapon->SetActorHiddenInGame(true);
-			CurrentWeapon = Weapon[index];
-			CurrentWeapon->SetActorHiddenInGame(false);
-		}
+
+		CurrentWeapon->SetActorHiddenInGame(true);
+		CurrentWeapon = Weapon[index];
+		CurrentWeapon->SetActorHiddenInGame(false);
 	}
 }

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "ModuleBase.h"
+#include "Ammo.h"
 #include "Fire.generated.h"
 
 /**
@@ -20,10 +21,16 @@ private:
 
 	FTimerHandle BurstTimerHandle;
 
+	FTimerHandle AutofireTimerHandle;
+
 	int InitialBurstCount;
-	bool bCanFire;
 
 	TArray<UModuleBase*> Array;
+
+	bool bCanFire;
+
+	UAmmo* Ammo;
+	int CurrentAmmo=1;
 
 public:
 
@@ -36,6 +43,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		float FireRate = 1.0f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool bAutomaticWeapon;
+
+	UPROPERTY(BlueprintReadWrite)
+		bool bAutofire;
+
 private:
 
 	UFire();
@@ -45,6 +58,9 @@ private:
 	void StartFire();
 	void ResetFire();
 
+	void Instant_Fire();
+
+	void Autofire();
 
 public:
 

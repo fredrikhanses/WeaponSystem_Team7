@@ -4,6 +4,7 @@
 #include "FireMode.h"
 #include <DrawDebugHelpers.h>
 #include <Engine/Engine.h>
+#include <Kismet/GameplayStatics.h>
 
 UFireMode::UFireMode()
 {
@@ -29,7 +30,7 @@ void UFireMode::OnFire()
 	{
 
 	case WeaponType::LineTrace:
-		if (PebbleAmount<1)
+		if (PebbleAmount < 1)
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, "You need to set PebbleAmount to more than 0!");
 		}
@@ -95,10 +96,13 @@ void UFireMode::ProcessInstantHit(const FHitResult& Hit, const FVector& Origin, 
 	const FVector Endtrace = Origin + ShootDir * Range;
 	const FVector EndPoint = Hit.GetActor() ? Hit.ImpactPoint : Endtrace;
 
+
 	if (Hit.GetActor())
 	{
 		DrawDebugLine(Weapon->GetWorld(), Origin, Hit.TraceEnd, FColor::Yellow, false, 2.0f);
 		GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Magenta, Hit.GetActor()->GetFName().ToString());
+
+		UGameplayStatics::ApplyDamage(Hit.GetActor(), 2.0f, nullptr, nullptr, nullptr);
 	}
 	else
 	{
@@ -108,12 +112,6 @@ void UFireMode::ProcessInstantHit(const FHitResult& Hit, const FVector& Origin, 
 
 void UFireMode::FireProjectile()
 {
-	///////////Not Used at the moment
-	//const int32 RandomSeed = FMath::Rand();
-	//FRandomStream WeaponRandomStream(RandomSeed);
-	//const float CurrentSpread = Spread;
-	//const float SpreadCone = FMath::DegreesToRadians(Spread * 0.5f);
-
 	const FVector StartLocation = Weapon->Mesh->GetSocketLocation("Muzzle");
 	const FRotator StartRotation = Weapon->Mesh->GetSocketRotation("Muzzle");
 

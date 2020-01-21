@@ -24,7 +24,7 @@ void USFX::Execute()
 
 void USFX::OnFire()
 {
-	if (FireSound == nullptr)
+	if (FireSoundCue == nullptr)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, "You need to set a Sound!");
 	}
@@ -36,9 +36,12 @@ void USFX::OnFire()
 
 void USFX::CreateSound()
 {
+	FireSoundCue->VolumeMultiplier = FMath::FRandRange(Volume-VolumeRangeMin, Volume + VolumeRangeMax);
+	FireSoundCue->PitchMultiplier = FMath::FRandRange(Pitch - PitchRangeMin, Pitch + PitchMRangeMax);
+
 	// try and play the sound if specified
-	if (FireSound != NULL)
+	if (FireSoundCue != nullptr)
 	{
-		UGameplayStatics::PlaySoundAtLocation(this, FireSound, Weapon->Mesh->GetSocketLocation("Muzzle"));
+		UGameplayStatics::PlaySoundAtLocation(this, FireSoundCue, Weapon->Mesh->GetSocketLocation("Muzzle"));
 	}
 }

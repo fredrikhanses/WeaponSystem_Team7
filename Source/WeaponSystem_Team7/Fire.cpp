@@ -2,6 +2,7 @@
 
 
 #include "Fire.h"
+#include <Engine/Engine.h>
 
 UFire::UFire()
 {
@@ -66,16 +67,19 @@ void UFire::OnFire(TArray<UModuleBase*> ModuleArray)
 
 void UFire::StartFire()
 {
-	if (--BurstCount <= 0)
+	if (BurstCount > 0)
+	{
+		for (auto modules : Array)
+		{
+			modules->Execute();
+		}
+	}
+
+	if (--BurstCount < 0)
 	{
 		GetWorld()->GetTimerManager().ClearTimer(BurstTimerHandle);
 		BurstCount = InitialBurstCount;
 		GetWorld()->GetTimerManager().SetTimer(FireDelayTimerHandle, this, &UFire::ResetFire, FireRate, false);
-	}
-
-	for (auto modules : Array)
-	{
-		modules->Execute();
 	}
 }
 

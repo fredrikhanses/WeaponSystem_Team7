@@ -38,6 +38,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
 		float Range = 750;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
+		float Damage=1.0f;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shotgun")
 		int PebbleAmount = 1;
 

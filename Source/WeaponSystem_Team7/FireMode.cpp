@@ -99,14 +99,14 @@ void UFireMode::ProcessInstantHit(const FHitResult& Hit, const FVector& Origin, 
 
 	if (Hit.GetActor())
 	{
-		DrawDebugLine(Weapon->GetWorld(), Origin, Hit.TraceEnd, FColor::Yellow, false, 2.0f);
+		DrawDebugLine(Weapon->GetWorld(), Origin, Hit.TraceEnd, FColor::Red, false, 2.0f);
 		GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Magenta, Hit.GetActor()->GetFName().ToString());
 
-		UGameplayStatics::ApplyDamage(Hit.GetActor(), 2.0f, nullptr, nullptr, nullptr);
+		UGameplayStatics::ApplyDamage(Hit.GetActor(), Damage, nullptr, nullptr, nullptr);
 	}
 	else
 	{
-		DrawDebugLine(Weapon->GetWorld(), Origin, Hit.TraceEnd, FColor::Red, false, 2.0f);
+		DrawDebugLine(Weapon->GetWorld(), Origin, Hit.TraceEnd, FColor::Yellow, false, 2.0f);
 	}
 }
 

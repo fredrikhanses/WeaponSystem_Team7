@@ -26,7 +26,7 @@ void UZoom::ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, bool
 
 		if (bZooming)
 		{
-			// Show HUD graphic (like a scope).
+			// Show HUD graphic (like a scope) For example.
 
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Scoping");
 			Weapon->ADSCam->FieldOfView /= ScopeZoomMultiplyer;
@@ -35,19 +35,16 @@ void UZoom::ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, bool
 		}
 		else if (!bZooming)
 		{
-			// Hide HUD graphic (like a scope).
-
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Not Scoping");
 			Weapon->ADSCam->FieldOfView *= ScopeZoomMultiplyer;
 			Controller->SetViewTargetWithBlend(Camera->GetOwner(), 0.1f);
-		}
+		}		
 	}
 
 	// ADS
 	if (bUsingAimDownSight)
 	{
-		bAimDownSight ? bAimDownSight = false : bAimDownSight = true;
-		
+		bAimDownSight ? bAimDownSight = false : bAimDownSight = true;		
 
 		if (bAimDownSight)
 		{
@@ -60,14 +57,4 @@ void UZoom::ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, bool
 			Controller->SetViewTargetWithBlend(Camera->GetOwner(), 0.1f);
 		}
 	}
-}
-
-void UZoom::BeginPlay()
-{
-	Super::BeginPlay();	
-}
-
-void UZoom::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }

@@ -11,6 +11,7 @@ void UFire::BeginPlay()
 
 	InitialBurstCount = BurstCount;
 	bCanFire = true;
+	bFirstShot = true;
 
 	//Prevents parameters from being 0
 	if (BurstCount < 1)
@@ -52,6 +53,15 @@ void UFire::OnFire(TArray<UModuleBase*> ModuleArray)
 
 	if (bAutomaticWeapon)
 	{
+		if (bFirstShot)
+		{
+			for (auto modules : Array)
+			{
+				modules->Execute();
+			}
+			bFirstShot = false;
+		}
+
 		GetWorld()->GetTimerManager().SetTimer(AutofireTimerHandle, this, &UFire::Autofire, FireRate, bAutofire);
 	}
 	else
@@ -86,19 +96,32 @@ void UFire::ResetFire()
 
 void UFire::Instant_Fire()
 {
-	if (bCanFire)
+	if (Ammo)
 	{
-		for (auto modules : Array)
-		{
-			modules->Execute();
-		}
-
-		--BurstCount;
-
-		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &UFire::StartFire, BurstDelay, true);
-
-		bCanFire = false;
+		CurrentAmmo--;
 	}
+
+	if (CurrentAmmo > 0)
+	{
+		if (bCanFire)
+		{
+			for (auto modules : Array)
+			{
+				modules->Execute();
+			}
+
+			--BurstCount;
+
+			GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &UFire::StartFire, BurstDelay, true);
+
+			bCanFire = false;
+		}
+	}
+	else
+	{
+		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &UFire::StartFire, BurstDelay, true);
+	}
+	
 }
 
 void UFire::Autofire()
@@ -116,6 +139,7 @@ void UFire::Autofire()
 	if (CurrentAmmo<=0)
 	{
 		bAutofire = false;
+		bFirstShot = true;
 	}
 
 	if (bAutofire == false)

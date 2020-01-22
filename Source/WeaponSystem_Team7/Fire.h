@@ -23,6 +23,7 @@ private:
 	TArray<UModuleBase*> Array;
 
 	bool bCanFire;
+	bool bFirstShot;
 
 	UAmmo* Ammo;
 	int CurrentAmmo=1;

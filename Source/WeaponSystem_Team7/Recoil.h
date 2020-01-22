@@ -31,22 +31,22 @@ public:
 	APawn* Pawn;
 
 	UPROPERTY(EditAnywhere, Category = Recoil)
-	float RecoilStrength = 0.5f;
+	float RecoilStrength = 0.1f;
 
 	UPROPERTY(EditAnywhere, Category = Recoil)
 	int RecoilSteps = 10.0f;
 
 	UPROPERTY(EditAnywhere, Category = Recoil)
-	float RandomRecoilYawLeftMax = 0.3f;
+	float RandomRecoilYawLeftMax = 0.1f;
 
 	UPROPERTY(EditAnywhere, Category = Recoil)
-	float RandomRecoilYawRightMax = 0.3f;
+	float RandomRecoilYawRightMax = 0.1f;
 
 	UPROPERTY(EditAnywhere, Category = RecoilRecover)
 	float Smoothness = 0.01f;
 
 	UPROPERTY(EditAnywhere, Category = Recover)
-	float RecoverStrength = 0.25f;
+	float RecoverStrength = 0.1f;
 
 	UPROPERTY(EditAnywhere, Category = Recover)
 	int RecoverSteps = 10.0f;

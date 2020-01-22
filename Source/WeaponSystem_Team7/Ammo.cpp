@@ -19,6 +19,23 @@ void UAmmo::Execute()
 	}
 }
 
+bool UAmmo::CheckAmmo()
+{
+	if (CurrentAmmo > 0)
+	{
+		return true;
+	}
+	return false;
+}
+
+void UAmmo::UseAmmo()
+{
+	if (CurrentAmmo > 0)
+	{
+		CurrentAmmo--;
+	}
+}
+
 void UAmmo::Reload()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, "Ammo Surplus");
@@ -47,19 +64,7 @@ void UAmmo::Reload()
 	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Emerald, FString::FromInt((int32)CurrentAmmo));
 }
 
-void UAmmo::UseAmmo()
+int UAmmo::GetCurrentAmmo()
 {
-	if (CurrentAmmo > 0)
-	{
-		CurrentAmmo--;
-	}
-}
-
-bool UAmmo::CheckAmmo()
-{
-	if (CurrentAmmo > 0)
-	{
-		return true;
-	}
-	return false;
+	return CurrentAmmo;
 }

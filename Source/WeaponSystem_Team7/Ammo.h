@@ -22,7 +22,7 @@ public:
 	int SurplusAmmo = 100;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Ammo)
-	int CurrentAmmo = 5;
+	int CurrentAmmo = 10;
 
 	UPROPERTY(EditAnywhere, Category = Ammo)
 	int ClipSize = 10;
@@ -36,15 +36,18 @@ public:
 	UAmmo();
 
 	UFUNCTION(BlueprintCallable)
+	void Execute();
+
+	UFUNCTION(BlueprintCallable)
+	bool CheckAmmo();	
+	
+	UFUNCTION(BlueprintCallable)
+	void UseAmmo();	
+		
+	UFUNCTION(BlueprintCallable)
 	void Reload();
 
 	UFUNCTION(BlueprintCallable)
-	void UseAmmo();
-
-	UFUNCTION(BlueprintCallable)
-	bool CheckAmmo();
-
-	UFUNCTION(BlueprintCallable)
-	void Execute();
+	int GetCurrentAmmo();
 
 };

@@ -8,7 +8,6 @@
 
 UFireMode::UFireMode()
 {
-
 }
 
 void UFireMode::BeginPlay()
@@ -17,7 +16,6 @@ void UFireMode::BeginPlay()
 
 	Weapon = Cast<AWeapon>(GetOwner());
 }
-
 
 void UFireMode::Execute()
 {
@@ -60,7 +58,6 @@ void UFireMode::OnFire()
 		break;
 	}
 }
-
 
 void UFireMode::Instant_Fire()
 {

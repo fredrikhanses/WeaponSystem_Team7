@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -8,9 +6,6 @@
 #include <Particles/ParticleSystem.h>
 #include "VFX.generated.h"
 
-/**
- * 
- */
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class WEAPONSYSTEM_TEAM7_API UVFX : public UModuleBase
 {
@@ -42,5 +37,4 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void OnFire();
-
 };

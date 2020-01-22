@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -15,9 +13,6 @@ LineTrace		UMETA(DisplayName = "LineTrace"),
 Projectile		UMETA(DisplayName = "Projectile")
 };
 
-/**
- * 
- */
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class WEAPONSYSTEM_TEAM7_API UFireMode : public UModuleBase
 {
@@ -64,5 +59,4 @@ public:
 		void OnFire();
 
 		virtual void Execute() override;
-
 };

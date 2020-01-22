@@ -1,12 +1,8 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Fire.h"
 #include <Engine/Engine.h>
 
 UFire::UFire()
 {
-
 }
 
 void UFire::BeginPlay()
@@ -15,8 +11,6 @@ void UFire::BeginPlay()
 
 	InitialBurstCount = BurstCount;
 	bCanFire = true;
-
-
 
 	//Prevents parameters from being 0
 	if (BurstCount < 1)
@@ -129,4 +123,3 @@ void UFire::Autofire()
 		GetWorld()->GetTimerManager().ClearTimer(AutofireTimerHandle);
 	}
 }
-

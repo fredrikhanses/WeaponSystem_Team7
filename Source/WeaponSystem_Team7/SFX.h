@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -9,14 +7,10 @@
 #include <Sound/SoundBase.h>
 #include "SFX.generated.h"
 
-/**
- *
- */
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class WEAPONSYSTEM_TEAM7_API USFX : public UModuleBase
 {
 	GENERATED_BODY()
-
 
 private:
 
@@ -24,12 +18,8 @@ private:
 
 public:
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
-	//	class USoundBase* FireSound;
-
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Sound", meta = (AllowPrivateAccess = "true"))
 		USoundCue* FireSoundCue;
-
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
 		float Volume = 1.0f;
@@ -49,8 +39,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "RandomizeProperties")
 		float PitchMRangeMax = 0.25f;
 
-
-
 private:
 
 	USFX();
@@ -59,13 +47,10 @@ private:
 
 	void CreateSound();
 
-
-
 public:
 
 	virtual void Execute() override;
 
 	UFUNCTION(BlueprintCallable)
 		void OnFire();
-
 };

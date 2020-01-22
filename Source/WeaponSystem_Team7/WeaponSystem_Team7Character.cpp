@@ -308,9 +308,11 @@ void AWeaponSystem_Team7Character::ChangeWeapon(int index)
 	}
 	else
 	{
-
-		CurrentWeapon->SetActorHiddenInGame(true);
-		CurrentWeapon = Weapon[index];
-		CurrentWeapon->SetActorHiddenInGame(false);
+		if (index<=Weapon.Num()-1)
+		{
+			CurrentWeapon->SetActorHiddenInGame(true);
+			CurrentWeapon = Weapon[index];
+			CurrentWeapon->SetActorHiddenInGame(false);
+		}
 	}
 }

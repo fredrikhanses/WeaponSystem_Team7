@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -14,6 +12,18 @@ class WEAPONSYSTEM_TEAM7_API UKickBack : public UModuleBase
 {
 	GENERATED_BODY()
 	
+private:
+
+	UAnimInstance* AnimInstance;
+
+public:
+
+	UPROPERTY(EditAnywhere, Category = Animation)
+	UAnimMontage* FireAnimation;
+
+	UPROPERTY(EditAnywhere, Category = Mesh)
+	USkeletalMeshComponent* Mesh;
+
 public:
 
 	UKickBack();
@@ -30,13 +40,4 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void AnimateKickBack();
 
-	UPROPERTY(EditAnywhere, Category = "Animation")
-	UAnimMontage* FireAnimation;
-
-	UPROPERTY(EditAnywhere, Category = "Mesh")
-	USkeletalMeshComponent* Mesh;
-
-private:
-
-	UAnimInstance* AnimInstance;
 };

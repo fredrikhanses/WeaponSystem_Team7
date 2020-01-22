@@ -1,13 +1,22 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Ammo.h"
 #include "Engine/Engine.h"
 
 UAmmo::UAmmo()
 {
-	PrimaryComponentTick.bCanEverTick = true;
+}
+
+void UAmmo::BeginPlay()
+{
+	Super::BeginPlay();
 	OriginalClipSize = ClipSize;
+}
+
+void UAmmo::Execute()
+{
+	if (CheckAmmo())
+	{
+		UseAmmo();
+	}
 }
 
 void UAmmo::Reload()
@@ -53,22 +62,4 @@ bool UAmmo::CheckAmmo()
 		return true;
 	}
 	return false;
-}
-
-void UAmmo::Execute()
-{
-	if (CheckAmmo())
-	{
-		UseAmmo();
-	}
-}
-
-void UAmmo::BeginPlay()
-{
-	Super::BeginPlay();	
-}
-
-void UAmmo::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }

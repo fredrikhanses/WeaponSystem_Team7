@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -7,6 +5,8 @@
 #include "Engine/EngineTypes.h"
 #include "ModuleBase.h"
 #include <Camera/CameraShake.h>
+#include <Engine/World.h>
+#include <Templates/SubclassOf.h>
 #include "Recoil.generated.h"
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -16,13 +16,42 @@ class WEAPONSYSTEM_TEAM7_API URecoil : public UModuleBase
 
 private:
 
+	UWorld* World;
 	FTimerHandle TimerHandle;
-
 	int InitialRecoilSteps;
-
 	int InitialRecoverSteps;
-
 	float RandomRecoilYaw;
+
+public:
+	
+	UPROPERTY(EditAnywhere, Category = CameraShake)
+	TSubclassOf<UCameraShake> CameraShake;
+
+	UPROPERTY(EditAnywhere, Category = Recoil)
+	APawn* Pawn;
+
+	UPROPERTY(EditAnywhere, Category = Recoil)
+	float RecoilStrength = 0.5f;
+
+	UPROPERTY(EditAnywhere, Category = Recoil)
+	int RecoilSteps = 10.0f;
+
+	UPROPERTY(EditAnywhere, Category = Recoil)
+	float RandomRecoilYawLeftMax = 0.3f;
+
+	UPROPERTY(EditAnywhere, Category = Recoil)
+	float RandomRecoilYawRightMax = 0.3f;
+
+	UPROPERTY(EditAnywhere, Category = RecoilRecover)
+	float Smoothness = 0.01f;
+
+	UPROPERTY(EditAnywhere, Category = Recover)
+	float RecoverStrength = 0.25f;
+
+	UPROPERTY(EditAnywhere, Category = Recover)
+	int RecoverSteps = 10.0f;
+
+private:
 
 	void StartRecoilTimer();
 
@@ -42,37 +71,13 @@ private:
 
 	void WeaponCameraShake();
 
+protected:
+
+	virtual void BeginPlay() override;
+
 public:
 
 	URecoil();
-
-	// Camera shake
-	UPROPERTY(EditAnywhere, Category = "Camera Shake")
-	TSubclassOf<UCameraShake> CameraShake;
-
-	UPROPERTY(EditAnywhere, Category = "Recoil")
-	APawn* Pawn;
-
-	UPROPERTY(EditAnywhere)
-	float RecoilStrength = 0.5f;
-
-	UPROPERTY(EditAnywhere)
-	int RecoilSteps = 10.0f;
-
-	UPROPERTY(EditAnywhere)
-	float RandomRecoilYawLeftMax = 0.3f;
-
-	UPROPERTY(EditAnywhere)
-	float RandomRecoilYawRightMax = 0.3f;
-
-	UPROPERTY(EditAnywhere, Category = "Recoil & Recover")
-	float Smoothness = 0.01f;
-
-	UPROPERTY(EditAnywhere, Category = "Recover")
-	float RecoverStrength = 0.25f;
-
-	UPROPERTY(EditAnywhere, Category = "Recover")
-	int RecoverSteps = 10.0f;
 
 	UFUNCTION(BlueprintCallable)
 	void SetPawn(APawn* InPawn);
@@ -82,13 +87,5 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void Execute();
-
-protected:
-
-	virtual void BeginPlay() override;
-
-public:	
-
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 };

@@ -1,11 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "ModuleBase.h"
-#include <Materials/Material.h>
+#include "Weapon.h"
 #include <Components/SkeletalMeshComponent.h>
+#include <Engine/SkeletalMesh.h>
+#include <Materials/Material.h>
 #include "SkinToggle.generated.h"
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
@@ -16,14 +16,15 @@ class WEAPONSYSTEM_TEAM7_API USkinToggle : public UModuleBase
 private:
 
 	USkeletalMeshComponent* Mesh;
+	AWeapon* WeaponMesh;
 
 public:
 
-	UPROPERTY(EditAnywhere, Category = Material)
-	UMaterial* Material;
-
 	UPROPERTY(EditAnywhere, Category = Mesh)
 	USkeletalMesh* SkeletalMesh;
+
+	UPROPERTY(EditAnywhere, Category = Material)
+	UMaterial* Material;
 
 protected:
 
@@ -33,13 +34,13 @@ public:
 
 	USkinToggle();
 
-	virtual void Execute() override;
-
 	UFUNCTION(BlueprintCallable)
 	void SetMaterial(UMaterial* InMaterial);
 
 	UFUNCTION(BlueprintCallable)
 	void SetMesh(USkeletalMesh* InMesh);
+
+	virtual void Execute() override;
 
 	UFUNCTION(BlueprintCallable)
 	void Toggle();

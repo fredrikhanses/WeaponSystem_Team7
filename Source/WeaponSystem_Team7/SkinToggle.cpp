@@ -1,7 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "SkinToggle.h"
-#include "Weapon.h"
 
 USkinToggle::USkinToggle()
 {
@@ -10,13 +7,13 @@ USkinToggle::USkinToggle()
 void USkinToggle::BeginPlay()
 {
 	Super::BeginPlay();
-	AWeapon* Weapon = Cast<AWeapon>(GetOwner());
-	Mesh = Weapon->Mesh;
+	WeaponMesh = Cast<AWeapon>(GetOwner());
+	Mesh = WeaponMesh->Mesh;
 }
 
-void USkinToggle::Execute()
+void USkinToggle::SetMesh(USkeletalMesh* InMesh)
 {
-	Toggle();
+	SkeletalMesh = InMesh;
 }
 
 void USkinToggle::SetMaterial(UMaterial* InMaterial)
@@ -24,9 +21,9 @@ void USkinToggle::SetMaterial(UMaterial* InMaterial)
 	Material = InMaterial;
 }
 
-void USkinToggle::SetMesh(USkeletalMesh* InMesh)
+void USkinToggle::Execute()
 {
-	SkeletalMesh = InMesh;
+	Toggle();
 }
 
 void USkinToggle::Toggle()
@@ -41,4 +38,3 @@ void USkinToggle::Toggle()
 		Mesh->SetSkeletalMesh(SkeletalMesh);
 	}
 }
-

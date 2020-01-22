@@ -1,11 +1,8 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "KickBack.h"
 #include <Engine/Engine.h>
 
 UKickBack::UKickBack()
 {
-
 }
 
 void UKickBack::SetMesh(USkeletalMeshComponent* InMesh)

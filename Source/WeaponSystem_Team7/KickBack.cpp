@@ -1,13 +1,12 @@
 #include "KickBack.h"
-#include <Engine/Engine.h>
 
 UKickBack::UKickBack()
 {
 }
 
-void UKickBack::SetMesh(USkeletalMeshComponent* InMesh)
+void UKickBack::SetCharacter(ACharacter* InCharacter)
 {
-	Mesh = InMesh;
+	Player = Cast<AWeaponSystem_Team7Character>(InCharacter);
 }
 
 void UKickBack::SetAnimation(UAnimMontage* InAnimation)
@@ -22,13 +21,12 @@ void UKickBack::Execute()
 
 void UKickBack::AnimateKickBack()
 {
-	if (FireAnimation != nullptr && FireAnimation != NULL)
+	if (Player != nullptr)
 	{
 		// Get the animation object for the arms mesh
-		AnimInstance = Mesh->GetAnimInstance();
-		if (AnimInstance != nullptr && AnimInstance != NULL)
+		AnimInstance = Player->GetMesh1P()->GetAnimInstance();
+		if (AnimInstance != nullptr && FireAnimation != nullptr)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, "Play kickback");
 			AnimInstance->Montage_Play(FireAnimation, 1.f);
 		}
 	}

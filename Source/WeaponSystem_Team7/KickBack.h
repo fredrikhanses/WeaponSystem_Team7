@@ -4,7 +4,8 @@
 #include "ModuleBase.h"
 #include <Animation/AnimMontage.h>
 #include <Animation/AnimInstance.h>
-#include <Components/SkeletalMeshComponent.h>
+#include <GameFramework/Character.h>
+#include "WeaponSystem_Team7Character.h"
 #include "KickBack.generated.h"
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
@@ -16,20 +17,19 @@ private:
 
 	UAnimInstance* AnimInstance;
 
+	AWeaponSystem_Team7Character* Player;
+
 public:
 
 	UPROPERTY(EditAnywhere, Category = Animation)
 	UAnimMontage* FireAnimation;
-
-	UPROPERTY(EditAnywhere, Category = Mesh)
-	USkeletalMeshComponent* Mesh;
 
 public:
 
 	UKickBack();
 
 	UFUNCTION(BlueprintCallable)
-	void SetMesh(USkeletalMeshComponent* InMesh);
+		void SetCharacter(ACharacter* InCharacter);
 
 	UFUNCTION(BlueprintCallable)
 	void SetAnimation(UAnimMontage* InAnimation);
@@ -39,5 +39,4 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void AnimateKickBack();
-
 };

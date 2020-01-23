@@ -121,7 +121,6 @@ void UFire::Instant_Fire()
 	{
 		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &UFire::StartFire, BurstDelay, true);
 	}
-	
 }
 
 void UFire::Autofire()
@@ -146,4 +145,9 @@ void UFire::Autofire()
 	{
 		GetWorld()->GetTimerManager().ClearTimer(AutofireTimerHandle);
 	}
+}
+
+void UFire::ToggleAutofire(bool InAutofire)
+{
+	bAutofire = InAutofire;
 }

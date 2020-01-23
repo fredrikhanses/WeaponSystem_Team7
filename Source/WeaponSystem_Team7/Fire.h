@@ -54,6 +54,7 @@ private:
 	void StartFire();
 	void ResetFire();
 
+
 	void Instant_Fire();
 
 	void Autofire();
@@ -63,6 +64,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void OnFire(TArray<UModuleBase*> ModuleArray);
 
-	virtual void Execute() override;
+	UFUNCTION(BlueprintCallable)
+	void ToggleAutofire(bool InAutofire);
 
+
+	virtual void Execute() override;
 };

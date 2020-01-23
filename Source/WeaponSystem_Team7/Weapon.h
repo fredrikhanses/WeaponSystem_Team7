@@ -14,18 +14,20 @@ UCLASS()
 class WEAPONSYSTEM_TEAM7_API AWeapon : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Collider")
 		USphereComponent* Collider;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Mesh")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Mesh")
 		USkeletalMeshComponent* Mesh;
 
 	// ADS Camera (for when using Zoom component)
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		UCameraComponent* ADSCam;
+
+	bool bIsEquipped = false;
 
 public:
 

@@ -311,8 +311,10 @@ void AWeaponSystem_Team7Character::ChangeWeapon(int index)
 		if (index<=Weapon.Num()-1)
 		{
 			CurrentWeapon->SetActorHiddenInGame(true);
+			CurrentWeapon->bIsEquipped = false;
 			CurrentWeapon = Weapon[index];
 			CurrentWeapon->SetActorHiddenInGame(false);
+			CurrentWeapon->bIsEquipped = true;
 		}
 	}
 }

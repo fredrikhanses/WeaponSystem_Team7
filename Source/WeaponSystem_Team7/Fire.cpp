@@ -55,14 +55,21 @@ void UFire::OnFire(TArray<UModuleBase*> ModuleArray)
 	{
 		if (bFirstShot)
 		{
-			for (auto modules : Array)
+			if (CurrentAmmo!=0)
 			{
-				modules->Execute();
+				for (auto modules : Array)
+				{
+					modules->Execute();
+				}
 			}
+
 			bFirstShot = false;
 		}
 
-		GetWorld()->GetTimerManager().SetTimer(AutofireTimerHandle, this, &UFire::Autofire, FireRate, bAutofire);
+		if (CurrentAmmo>0)
+		{
+			GetWorld()->GetTimerManager().SetTimer(AutofireTimerHandle, this, &UFire::Autofire, FireRate, bAutofire);
+		}
 	}
 	else
 	{
@@ -135,7 +142,7 @@ void UFire::Autofire()
 		CurrentAmmo--;
 	}
 
-	if (CurrentAmmo<=0)
+	if (CurrentAmmo <= 0)
 	{
 		bAutofire = false;
 		bFirstShot = true;

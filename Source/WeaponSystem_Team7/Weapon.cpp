@@ -35,6 +35,7 @@ void AWeapon::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 	character->Weapon.Add(this);
 	if (character->CurrentWeapon==nullptr)
 	{
+		bIsEquipped = true;
 		character->CurrentWeapon = character->Weapon[0];
 		character->CurrentWeapon->SetActorHiddenInGame(false);
 	}

@@ -3,6 +3,8 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Weapon.h"
+#include <GameFramework/PlayerController.h>
 #include "Zoom.generated.h"
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -14,14 +16,27 @@ private:
 
 	bool bZooming = false;
 	bool bAimDownSight = false;
+
+	bool bIsZoomed = false;
 	
 	bool bUsingZooming = false;
 	bool bUsingAimDownSight = false;
+
+	FTimerHandle ZoomBreakTimerHandle;
+	UCameraComponent* InitCamera;
+	float ZoomMultiplyer;
+	AWeapon* Weapon;
+	APlayerController* Controller;
 
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UCameraComponent* ADSCam;
+
+private:
+
+	void ZoomBreak();
+
 
 public:
 	UZoom();

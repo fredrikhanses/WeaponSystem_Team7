@@ -67,6 +67,5 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ToggleAutofire(bool InAutofire);
 
-
 	virtual void Execute() override;
 };

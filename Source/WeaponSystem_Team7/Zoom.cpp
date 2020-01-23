@@ -15,58 +15,36 @@ void UZoom::ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, bool
 
 
 	if (bWeaponHasScope) { bUsingZooming = true; }
-	else if (!bWeaponHasScope) { bUsingAimDownSight = true; }
-	
+
 	Weapon = Cast<AWeapon>(GetOwner());
 	Controller = UGameplayStatics::GetPlayerController(this, 0);
 
+	bZooming ? bZooming = false : bZooming = true;
 
-
-	// Separated Zooming/ADS so that we could build upon this to use different scopes maybe etc.
-	if (bUsingZooming)
+	if (bZooming)
 	{
-		bZooming ? bZooming = false : bZooming = true;
+		GetWorld()->GetTimerManager().SetTimer(ZoomBreakTimerHandle, this, &UZoom::ZoomBreak, 0.05f, true);
 
-		if (bZooming)
+
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Scoping");
+		if (bUsingZooming)
 		{
-			GetWorld()->GetTimerManager().SetTimer(ZoomBreakTimerHandle, this, &UZoom::ZoomBreak, 0.05f, true);
+			Weapon->ADSCam->FieldOfView /= ScopeZoomMultiplyer;
 
 			// Show HUD graphic (like a scope) For example.
-
-			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Scoping");
-			Weapon->ADSCam->FieldOfView /= ScopeZoomMultiplyer;
-			Controller->SetViewTargetWithBlend(Weapon->ADSCam->GetOwner(), 0.1f);
-
 		}
-		else if (!bZooming)
-		{
-			GetWorld()->GetTimerManager().ClearTimer(ZoomBreakTimerHandle);
-
-			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Not Scoping");
-			Weapon->ADSCam->FieldOfView *= ScopeZoomMultiplyer;
-			Controller->SetViewTargetWithBlend(Camera->GetOwner(), 0.1f);
-		}		
+		Controller->SetViewTargetWithBlend(Weapon->ADSCam->GetOwner(), 0.1f);
 	}
-
-	// ADS
-	if (bUsingAimDownSight)
+	else if (!bZooming)
 	{
-		bAimDownSight ? bAimDownSight = false : bAimDownSight = true;		
+		GetWorld()->GetTimerManager().ClearTimer(ZoomBreakTimerHandle);
 
-		if (bAimDownSight)
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Not Scoping");
+		if (bUsingZooming)
 		{
-			GetWorld()->GetTimerManager().SetTimer(ZoomBreakTimerHandle, this, &UZoom::ZoomBreak, 0.05f, true);
-
-			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "ADSing");
-			Controller->SetViewTargetWithBlend(Weapon->ADSCam->GetOwner(), 0.1f);
+			Weapon->ADSCam->FieldOfView *= ScopeZoomMultiplyer;
 		}
-		else if (!bAimDownSight)
-		{
-			GetWorld()->GetTimerManager().ClearTimer(ZoomBreakTimerHandle);
-
-			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Not ADSing");
-			Controller->SetViewTargetWithBlend(Camera->GetOwner(), 0.1f);
-		}
+		Controller->SetViewTargetWithBlend(Camera->GetOwner(), 0.1f);
 	}
 }
 
@@ -74,20 +52,16 @@ void UZoom::ZoomBreak()
 {
 	if (!Weapon->bIsEquipped)
 	{
-
 		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Not Scoping");
+
+		bZooming ? bZooming = false : bZooming = true;
+
 		if (bUsingZooming)
 		{
-			bZooming ? bZooming = false : bZooming = true;
 			Weapon->ADSCam->FieldOfView *= ZoomMultiplyer;
 		}
 
-		if (bUsingAimDownSight)
-		{
-			bAimDownSight ? bAimDownSight = false : bAimDownSight = true;
-		}
 		Controller->SetViewTargetWithBlend(InitCamera->GetOwner(), 0.1f);
-
 		GetWorld()->GetTimerManager().ClearTimer(ZoomBreakTimerHandle);
 	}
 }

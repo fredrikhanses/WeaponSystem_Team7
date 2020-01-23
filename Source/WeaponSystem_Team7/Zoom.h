@@ -15,12 +15,10 @@ class WEAPONSYSTEM_TEAM7_API UZoom : public UActorComponent
 private:
 
 	bool bZooming = false;
-	bool bAimDownSight = false;
 
 	bool bIsZoomed = false;
 	
 	bool bUsingZooming = false;
-	bool bUsingAimDownSight = false;
 
 	FTimerHandle ZoomBreakTimerHandle;
 	UCameraComponent* InitCamera;
@@ -36,7 +34,6 @@ public:
 private:
 
 	void ZoomBreak();
-
 
 public:
 	UZoom();

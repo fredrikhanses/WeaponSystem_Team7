@@ -18,7 +18,7 @@ public:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = Weapon)
 		TArray<AWeapon*> Weapon;
 
-		UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = Weapon)
+		UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Weapon)
 		class AWeapon* CurrentWeapon;
 
 	/** Pawn mesh: 1st person view (arms; seen only by self) */

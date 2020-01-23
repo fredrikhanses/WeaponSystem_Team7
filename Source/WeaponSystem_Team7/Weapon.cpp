@@ -5,7 +5,7 @@
 
 // Sets default values
 AWeapon::AWeapon()
-{	
+{
 	ADSCam = CreateDefaultSubobject<UCameraComponent>(TEXT("ADSCamera"));
 	ADSCam->SetRelativeLocationAndRotation(FVector(0.0f, 10.0f, 24.0f), FRotator(0.0f, 89.5f, 0.0f)); // Setting default location/rotation
 
@@ -17,9 +17,9 @@ AWeapon::AWeapon()
 
 	Collider = CreateDefaultSubobject<USphereComponent>("Collider");
 	Collider->SetupAttachment(Mesh);
-	
+
 	ADSCam->SetupAttachment(RootComponent);
-	
+
 	Collider->OnComponentBeginOverlap.AddDynamic(this, &AWeapon::BeginOverlap);
 }
 
@@ -33,10 +33,20 @@ void AWeapon::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 	Collider->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	SetActorHiddenInGame(true);
 	character->Weapon.Add(this);
-	if (character->CurrentWeapon==nullptr)
+	if (character->CurrentWeapon == nullptr)
 	{
 		bIsEquipped = true;
 		character->CurrentWeapon = character->Weapon[0];
 		character->CurrentWeapon->SetActorHiddenInGame(false);
 	}
+}
+
+UAmmo* AWeapon::GetAmmoComponent()
+{
+	return Ammo;
+}
+
+void AWeapon::SetAmmoComponent(UAmmo* InAmmo)
+{
+	Ammo = InAmmo;
 }

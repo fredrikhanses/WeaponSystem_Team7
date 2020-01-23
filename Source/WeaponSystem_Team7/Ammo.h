@@ -50,4 +50,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	int GetCurrentAmmo();
 
+	UFUNCTION(BlueprintCallable)
+	int GetSurplusAmmo();
+
 };

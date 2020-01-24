@@ -13,10 +13,7 @@ void UAmmo::BeginPlay()
 
 void UAmmo::Execute()
 {
-	if (CheckAmmo())
-	{
-		UseAmmo();
-	}
+	UseAmmo();
 }
 
 bool UAmmo::CheckAmmo()
@@ -30,7 +27,7 @@ bool UAmmo::CheckAmmo()
 
 void UAmmo::UseAmmo()
 {
-	if (CurrentAmmo > 0)
+	if (CheckAmmo())
 	{
 		CurrentAmmo--;
 	}
@@ -38,11 +35,6 @@ void UAmmo::UseAmmo()
 
 void UAmmo::Reload()
 {
-	/*GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, "Ammo Surplus");
-	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, FString::FromInt((int32)SurplusAmmo));
-	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, "Current Ammo");
-	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, FString::FromInt((int32)CurrentAmmo));*/
-
 	if (SurplusAmmo > 0)
 	{
 		ClipSize -= CurrentAmmo;
@@ -55,11 +47,6 @@ void UAmmo::Reload()
 		CurrentAmmo += ClipSize;
 		ClipSize = OriginalClipSize;
 	}
-
-	//GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, "Ammo Surplus");
-	//GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Emerald, FString::FromInt((int32)SurplusAmmo));
-	//GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Cyan, "Current Ammo");
-	//GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Emerald, FString::FromInt((int32)CurrentAmmo));
 }
 
 int UAmmo::GetCurrentAmmo()

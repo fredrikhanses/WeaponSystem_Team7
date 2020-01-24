@@ -86,6 +86,6 @@ public:
 	void SetCameraShake(TSubclassOf<UCameraShake> InCameraShake);
 
 	UFUNCTION(BlueprintCallable)
-	void Execute();
+	virtual void Execute() override;
 
 };

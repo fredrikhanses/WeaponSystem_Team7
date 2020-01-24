@@ -35,15 +35,28 @@ public:
 
 	UAmmo();
 
+	/**
+	* Inherited function that is used in conjunction with 
+	*/
 	UFUNCTION(BlueprintCallable)
-	void Execute();
+	virtual void Execute() override;
 
+	/**
+	* Checks if there are any current ammo
+	*/
 	UFUNCTION(BlueprintCallable)
 	bool CheckAmmo();	
 	
+	/**
+	* Decrements current ammo by one
+	*/
 	UFUNCTION(BlueprintCallable)
 	void UseAmmo();	
-		
+	
+	/**
+	* Sets current ammo to the size of the clip and 
+	* removes an appropriate amount from surplus ammo
+	*/
 	UFUNCTION(BlueprintCallable)
 	void Reload();
 

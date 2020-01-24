@@ -40,6 +40,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetMesh(USkeletalMesh* InMesh);
 
+	UFUNCTION(BlueprintCallable)
 	virtual void Execute() override;
 
 	UFUNCTION(BlueprintCallable)

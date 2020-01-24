@@ -32,12 +32,16 @@ public:
 	UCameraComponent* ADSCam;
 
 private:
-
+	
 	void ZoomBreak();
 
 public:
+
 	UZoom();
 
+	/**
+	 * Toggles ADS/Zoom. Check "Weapon has scope" to use the ScopeZoomMultiplyer (2.0 zooms the view x2 for example).
+	 */
 	UFUNCTION(BlueprintCallable)
 	void ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, bool bWeaponHasScope);		
 };

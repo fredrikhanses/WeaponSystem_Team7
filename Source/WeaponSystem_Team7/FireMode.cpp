@@ -93,7 +93,6 @@ void UFireMode::ProcessInstantHit(const FHitResult& Hit, const FVector& Origin, 
 	const FVector Endtrace = Origin + ShootDir * Range;
 	const FVector EndPoint = Hit.GetActor() ? Hit.ImpactPoint : Endtrace;
 
-
 	if (Hit.GetActor())
 	{
 		DrawDebugLine(Weapon->GetWorld(), Origin, Hit.TraceEnd, FColor::Red, false, 2.0f);

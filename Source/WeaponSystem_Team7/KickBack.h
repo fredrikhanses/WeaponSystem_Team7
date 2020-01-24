@@ -12,7 +12,7 @@ UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class WEAPONSYSTEM_TEAM7_API UKickBack : public UModuleBase
 {
 	GENERATED_BODY()
-	
+
 private:
 
 	UAnimInstance* AnimInstance;
@@ -21,22 +21,49 @@ private:
 
 public:
 
+	/**
+	 * Animation to use for the kickback.
+	 * To run kickback, you need to use the SetCharacter function in BeginPlay(Recommended)
+	 */
 	UPROPERTY(EditAnywhere, Category = Animation)
-	UAnimMontage* FireAnimation;
+		UAnimMontage* FireAnimation;
+
+	/**
+	 * Speed of animation montage.
+	 * Lower numbers for slower animations.
+	 */
+	UPROPERTY(EditAnywhere, Category = Animation)
+		float PlayRate = 1.0f;
 
 public:
 
 	UKickBack();
 
+	/**
+	 * Set Character that uses the animation.
+	 * For example, The player.
+	 */
 	UFUNCTION(BlueprintCallable)
 		void SetCharacter(ACharacter* InCharacter);
 
+	/**
+	* Sets speed of animation.
+	* Lower numbers for slower animations
+	*/
 	UFUNCTION(BlueprintCallable)
-	void SetAnimation(UAnimMontage* InAnimation);
+		void SetPlayRate(float InPlayRate);
 
+	/**
+	 * Function to set the Animation Montage Property
+	 */
 	UFUNCTION(BlueprintCallable)
+		void SetAnimation(UAnimMontage* InAnimation);
+
 	virtual void Execute() override;
 
+	/**
+	 * Runs the kickback animation
+	 */
 	UFUNCTION(BlueprintCallable)
-	void AnimateKickBack();
+		void AnimateKickBack();
 };

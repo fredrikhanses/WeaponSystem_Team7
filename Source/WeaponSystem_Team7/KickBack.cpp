@@ -9,6 +9,11 @@ void UKickBack::SetCharacter(ACharacter* InCharacter)
 	Player = Cast<AWeaponSystem_Team7Character>(InCharacter);
 }
 
+void UKickBack::SetPlayRate(float InPlayRate)
+{
+	PlayRate = InPlayRate;
+}
+
 void UKickBack::SetAnimation(UAnimMontage* InAnimation)
 {
 	FireAnimation = InAnimation;
@@ -27,7 +32,7 @@ void UKickBack::AnimateKickBack()
 		AnimInstance = Player->GetMesh1P()->GetAnimInstance();
 		if (AnimInstance != nullptr && FireAnimation != nullptr)
 		{
-			AnimInstance->Montage_Play(FireAnimation, 1.f);
+			AnimInstance->Montage_Play(FireAnimation, PlayRate);
 		}
 	}
 }

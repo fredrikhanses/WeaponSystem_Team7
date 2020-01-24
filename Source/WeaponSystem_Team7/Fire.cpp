@@ -97,18 +97,22 @@ void UFire::ResetFire()
 
 void UFire::Instant_Fire()
 {
-	if (Ammo)
-	{
-		CurrentAmmo--;
-	}
 
 	if (CurrentAmmo > 0)
 	{
+		if (Ammo)
+		{
+			CurrentAmmo--;
+		}
+
 		if (bCanFire)
 		{
-			for (auto modules : Array)
+			if (CurrentAmmo >= 0)
 			{
-				modules->Execute();
+				for (auto modules : Array)
+				{
+					modules->Execute();
+				}
 			}
 
 			--BurstCount;
@@ -118,10 +122,10 @@ void UFire::Instant_Fire()
 			bCanFire = false;
 		}
 	}
-	else
-	{
-		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &UFire::StartFire, BurstDelay, true);
-	}
+	//else
+	//{
+	//	GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &UFire::StartFire, BurstDelay, true);
+	//}
 }
 
 void UFire::Autofire()

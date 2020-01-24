@@ -23,28 +23,31 @@ void UWeaponSystemWidget::DisplayAmmoInfo()
 
 void UWeaponSystemWidget::UpdateWeaponName()
 {
-	if (Character != nullptr)
+	if (Player != nullptr)
 	{
-		Player = Cast<AWeaponSystem_Team7Character>(Character);
-		if (WeaponArray.Num() > ArrayIndex)
+		if (WeaponSlotArray.Num() > ArrayIndex)
 		{
-			WeaponArray[ArrayIndex]->SetText(FText::FromString(Player->CurrentWeapon->GetFName().ToString()));
-			ArrayIndex++;
+			//FText Temp = FText::FromString(Player->CurrentWeapon->GetFName().ToString());
+			//if(!WeaponNameArray.Contains(Temp))
+			//{
+				WeaponSlotArray[ArrayIndex]->SetText(FText::FromString(Player->CurrentWeapon->GetFName().ToString()));
+				ArrayIndex++;
+			//}
 		}
 	}
 }
 
-void UWeaponSystemWidget::FillArray()
+void UWeaponSystemWidget::CreateWeaponSlotArray()
 {
-	WeaponArray.Emplace(FirstSlotName);
-	WeaponArray.Emplace(SecondSlotName);
-	WeaponArray.Emplace(ThirdSlotName);
-	WeaponArray.Emplace(FourthSlotName);
+	WeaponSlotArray.Emplace(FirstSlotName);
+	WeaponSlotArray.Emplace(SecondSlotName);
+	WeaponSlotArray.Emplace(ThirdSlotName);
+	WeaponSlotArray.Emplace(FourthSlotName);
 }
 
 void UWeaponSystemWidget::NativeConstruct()
 {
-	FillArray();
+	CreateWeaponSlotArray();
 	//AWeaponSystem_Team7Character* Player = Cast<AWeaponSystem_Team7Character>(GetWorld()->GetFirstPlayerController()->GetPawn());
 
 	//if (Player != nullptr)

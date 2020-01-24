@@ -4,7 +4,6 @@
 #include "Blueprint/UserWidget.h"
 #include <Components/TextBlock.h>
 #include "Ammo.h"
-#include <GameFramework/Character.h>
 #include "WeaponSystem_Team7Character.h"
 #include "WeaponSystemWidget.generated.h"
 
@@ -57,11 +56,11 @@ public:
 	UAmmo* Ammo;
 
 	UPROPERTY(BlueprintReadWrite, Category = Data)
-	ACharacter* Character;
-
 	AWeaponSystem_Team7Character* Player;
 
-	TArray<UTextBlock*> WeaponArray;
+	TArray<UTextBlock*> WeaponSlotArray;
+
+	TArray<const FText> WeaponNameArray;
 
 	int ArrayIndex;
 
@@ -95,5 +94,5 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void UpdateWeaponName();
 
-	void FillArray();
+	void CreateWeaponSlotArray();
 };

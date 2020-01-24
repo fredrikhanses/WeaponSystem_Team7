@@ -13,7 +13,6 @@ void UZoom::ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, bool
 	InitCamera = Camera;
 	ZoomMultiplyer = ScopeZoomMultiplyer;
 
-
 	if (bWeaponHasScope) { bUsingZooming = true; }
 
 	Weapon = Cast<AWeapon>(GetOwner());
@@ -25,13 +24,12 @@ void UZoom::ZoomToggle(UCameraComponent* Camera, float ScopeZoomMultiplyer, bool
 	{
 		GetWorld()->GetTimerManager().SetTimer(ZoomBreakTimerHandle, this, &UZoom::ZoomBreak, 0.05f, true);
 
-
 		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, "Scoping");
 		if (bUsingZooming)
 		{
-			Weapon->ADSCam->FieldOfView /= ScopeZoomMultiplyer;
-
 			// Show HUD graphic (like a scope) For example.
+
+			Weapon->ADSCam->FieldOfView /= ScopeZoomMultiplyer;
 		}
 		Controller->SetViewTargetWithBlend(Weapon->ADSCam->GetOwner(), 0.1f);
 	}

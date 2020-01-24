@@ -17,25 +17,45 @@ private:
 	AWeapon* Weapon;
 
 public:
-
+	/**
+	 * Choose the SoundCue to play when firing your gun.
+	 */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Sound", meta = (AllowPrivateAccess = "true"))
 		USoundCue* FireSoundCue;
 
+	/**
+	 * Volume
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
 		float Volume = 1.0f;
 
+	/**
+	 * Min value for randomizing volume
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "RandomizeProperties")
 		float VolumeRangeMin = 0.25f;
 
+	/**
+	 * Max value for randomizing volume
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "RandomizeProperties")
 		float VolumeRangeMax = 0.25f;
 
+	/**
+	 * Pitch
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
 		float Pitch = 1.0f;
 
+	/**
+	 * Min value for randomizing pitch
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "RandomizeProperties")
 		float PitchRangeMin = 0.25f;
 
+	/**
+	 * Max value for randomizing pitch
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "RandomizeProperties")
 		float PitchMRangeMax = 0.25f;
 
@@ -51,6 +71,9 @@ public:
 
 	virtual void Execute() override;
 
+	/**
+	 * Plays the soundcue with set parameters
+	 */
 	UFUNCTION(BlueprintCallable)
 		void OnFire();
 };

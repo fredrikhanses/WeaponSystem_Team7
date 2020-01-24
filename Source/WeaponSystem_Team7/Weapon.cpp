@@ -43,7 +43,13 @@ void AWeapon::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 
 UAmmo* AWeapon::GetAmmoComponent()
 {
-	return Ammo;
+	if (Ammo!=nullptr)
+	{
+		return Ammo;
+	}
+
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, "You have no Ammo Component set! Use SetAmmoComonent function!");
+	return nullptr;
 }
 
 void AWeapon::SetAmmoComponent(UAmmo* InAmmo)

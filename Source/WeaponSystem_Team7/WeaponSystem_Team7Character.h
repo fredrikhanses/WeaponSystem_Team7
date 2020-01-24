@@ -15,10 +15,21 @@ class AWeaponSystem_Team7Character : public ACharacter
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = Weapon)
+
+	/**
+	* The current list of weapons that the character is holding.
+	* this tweaks itself when picking up weapons.
+	* It's only visible for debug reasons.
+	*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Weapon)
 		TArray<AWeapon*> Weapon;
 
-		UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Weapon)
+
+	/**
+	* The current weapon that the character is holding in his hands.
+	* It's only visible for debug reasons.
+	*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Weapon)
 		class AWeapon* CurrentWeapon;
 
 	/** Pawn mesh: 1st person view (arms; seen only by self) */
@@ -89,8 +100,12 @@ public:
 		uint32 bUsingMotionControllers : 1;
 
 public:
+	/**
+	* Changes the CurrentWeapon to another in the list of weapons the character is holding.
+	*Just specify the index to change to that weapon.
+	*/
 	UFUNCTION(BlueprintCallable)
-	void ChangeWeapon(int index);
+		void ChangeWeapon(int index);
 
 protected:
 

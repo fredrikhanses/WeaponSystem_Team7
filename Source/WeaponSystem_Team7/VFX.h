@@ -17,9 +17,16 @@ private:
 
 public:
 
+	/**
+	* The particles system that are used for the muzzle flash.
+	*/
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effect")
 		UParticleSystem* EmitterTemplate;
 
+
+	/**
+	* The scale of the particle system.
+	*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Properties")
 		FVector Scale=FVector(1.0f);
 
@@ -32,9 +39,13 @@ private:
 	void CreateVFX();
 
 public:
-	UFUNCTION(BlueprintCallable)
+
 	virtual void Execute() override;
 
+	/**
+	* Spawns the particles system on the muzzle location.
+	* It is recommended to use the Fire Component and using the OnFire function on that instead.
+	*/
 	UFUNCTION(BlueprintCallable)
 		void OnFire();
 };

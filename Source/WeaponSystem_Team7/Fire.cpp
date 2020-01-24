@@ -30,11 +30,6 @@ void UFire::BeginPlay()
 	}
 }
 
-void UFire::Execute()
-{
-
-}
-
 void UFire::OnFire(TArray<UModuleBase*> ModuleArray)
 {
 	if (Array.Num() == 0)
@@ -62,7 +57,6 @@ void UFire::OnFire(TArray<UModuleBase*> ModuleArray)
 					modules->Execute();
 				}
 			}
-
 			bFirstShot = false;
 		}
 

@@ -28,10 +28,13 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Mesh")
 		USkeletalMeshComponent* Mesh;
 
-	// ADS Camera (for when using Zoom component)
+	/**
+	* Aim Down Sight Camera (for when using Zoom component)
+	*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		UCameraComponent* ADSCam;
 
+	//Checks to see if Weapon is equipped.
 	bool bIsEquipped = false;
 
 public:
@@ -47,9 +50,15 @@ public:
 			bool bFromSweep,
 			const FHitResult& SweepResult);
 
+	/**
+	* Creates a reference to a Ammo component if used. this is needed to show the ammo count in the HUD.
+	*/
 	UFUNCTION(BlueprintCallable)
-	void SetAmmoComponent(UAmmo* InAmmo);
+		void SetAmmoComponent(UAmmo* InAmmo);
 
+	/**
+	* Gets the Ammo component. This only works if you have already set one with SetAmmoComponent.
+	*/
 	UFUNCTION(BlueprintCallable)
-	UAmmo* GetAmmoComponent();
+		UAmmo* GetAmmoComponent();
 };

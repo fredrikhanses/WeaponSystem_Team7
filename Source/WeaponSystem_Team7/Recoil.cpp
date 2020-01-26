@@ -39,7 +39,7 @@ void URecoil::StartRecoilTimer()
 
 void URecoil::GenerateYawAmount()
 {
-	RandomRecoilYaw = FMath::RandRange(-1 * RandomRecoilYawLeftMax, RandomRecoilYawRightMax);
+	RandomRecoilYaw = FMath::RandRange(-1 * RecoilYawLeftMax, RecoilYawRightMax);
 }
 
 void URecoil::Recoil()

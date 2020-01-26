@@ -11,88 +11,94 @@ UCLASS(Abstract)
 class WEAPONSYSTEM_TEAM7_API UWeaponSystemWidget : public UUserWidget
 {
 	GENERATED_BODY()
-	
-private:	
-
-	/**
-	* Disclaimer: Not in use at the moment.
-	* Standard timer handle used for updating widget.
-	*/
-	//FTimerHandle TimerHandle;
-	int CurrentAmmo;
-	int SurplusAmmo;
 
 public:
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Widgets)
-	TSubclassOf<UUserWidget> Widget;
-
+	
 	/**
-	* Disclaimer: Not in use at the moment.
-	* Used for creating the widget.
+	* Ammo UTextBlock which are placed in the widget. Stores current ammo
 	*/
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Widgets)
-	//UUserWidget* WidgetHolder;
-
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	UTextBlock* CurrentAmmoText;
 
+	/**
+	* Ammo UTextBlock which are placed in the widget. Stores surplus ammo
+	*/
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	UTextBlock* SurplusAmmoText;
 
+	/**
+	* 1st weapon name UTextBlock which are placed in the widget
+	*/
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	UTextBlock* FirstSlotName;
 
+	/**
+	* 2nd weapon name UTextBlock which are placed in the widget
+	*/
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	UTextBlock* SecondSlotName;
 
+	/**
+	* 3rd weapon name UTextBlock which are placed in the widget
+	*/
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	UTextBlock* ThirdSlotName;
 
+	/**
+	* 4th weapon name UTextBlock which are placed in the widget
+	*/
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	UTextBlock* FourthSlotName;
 
+	/**
+	* Stores a reference to an ammo component
+	*/
 	UPROPERTY(BlueprintReadWrite, Category = Data)
 	UAmmo* Ammo;
 
+	/**
+	* Stores a reference to the player
+	*/
 	UPROPERTY(BlueprintReadWrite, Category = Data)
 	AWeaponSystem_Team7Character* Player;
 
+	/**
+	* An array to store the name of the weapons
+	*/
 	TArray<UTextBlock*> WeaponSlotArray;
 
-	TArray<const FText> WeaponNameArray;
-
-	int ArrayIndex;
-
 	/**
-	* Disclaimer: Not in use at the moment.
-	* The interval in which the widget updates.
+	* An array that stores the picked up weapons
 	*/
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Data)
-	//float UpdateInterval = 0.1f;
+	TArray<AWeapon*> WeaponArray;
 
 public:
 	
+	/**
+	* Constructor
+	*/
 	UWeaponSystemWidget(const FObjectInitializer& ObjectInitializer);
 
 	/**
-	* Disclaimer: Not in use at the moment.
-	* 
+	* Function that is used similar to BeginPlay
 	*/
 	virtual void NativeConstruct() override;
 
 	/**
-	* Disclaimer: Not in use at the moment.
-	* Creates a timer which updates the widget.
+	* Updates ammo on screen
 	*/
-	//UFUNCTION(BlueprintCallable)
-	//void StartTimer();
-
 	UFUNCTION(BlueprintCallable)
 	void DisplayAmmoInfo();
 
+	/**
+	* Updates weapon names and their color on screen
+	*/
 	UFUNCTION(BlueprintCallable)
 	void UpdateWeaponName();
 
+	/**
+	* Fills the array with the UTextBlocks
+	*/
 	void CreateWeaponSlotArray();
+
 };

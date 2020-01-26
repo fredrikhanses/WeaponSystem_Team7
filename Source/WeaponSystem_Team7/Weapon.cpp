@@ -52,7 +52,23 @@ UAmmo* AWeapon::GetAmmoComponent()
 	return nullptr;
 }
 
+UUIColor* AWeapon::GetUIColorComponent()
+{
+	if (UIColor != nullptr)
+	{
+		return UIColor;
+	}
+
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, "You have no UIColor Component set! Use SetUIColorComponent function!");
+	return nullptr;
+}
+
 void AWeapon::SetAmmoComponent(UAmmo* InAmmo)
 {
 	Ammo = InAmmo;
+}
+
+void AWeapon::SetUIColorComponent(UUIColor* InUIColor)
+{
+	UIColor = InUIColor;
 }

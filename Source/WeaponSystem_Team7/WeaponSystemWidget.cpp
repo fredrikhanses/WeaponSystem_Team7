@@ -1,23 +1,15 @@
 #include "WeaponSystemWidget.h"
-#include "WeaponSystem_Team7Character.h"
 
 UWeaponSystemWidget::UWeaponSystemWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 }
 
-//void UWeaponSystemWidget::StartTimer()
-//{
-//	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &UWeaponSystemWidget::DisplayAmmoInfo, UpdateInterval, true);
-//}
-
 void UWeaponSystemWidget::DisplayAmmoInfo()
 {
 	if (Ammo != nullptr)
 	{
-		CurrentAmmo = Ammo->GetCurrentAmmo();
-		SurplusAmmo = Ammo->GetSurplusAmmo();	
-		CurrentAmmoText->SetText(FText::FromString(FString::FromInt(CurrentAmmo)));
-		SurplusAmmoText->SetText(FText::FromString(FString::FromInt(SurplusAmmo)));
+		CurrentAmmoText->SetText(FText::FromString(FString::FromInt(Ammo->GetCurrentAmmo())));
+		SurplusAmmoText->SetText(FText::FromString(FString::FromInt(Ammo->GetSurplusAmmo())));
 	}
 }
 
@@ -25,14 +17,17 @@ void UWeaponSystemWidget::UpdateWeaponName()
 {
 	if (Player != nullptr)
 	{
-		if (WeaponSlotArray.Num() > ArrayIndex)
+		WeaponArray = Player->Weapon;
+		if (WeaponArray.Num() > 0 && WeaponArray.Num() <= WeaponSlotArray.Num())
 		{
-			//FText Temp = FText::FromString(Player->CurrentWeapon->GetFName().ToString());
-			//if(!WeaponNameArray.Contains(Temp))
-			//{
-				WeaponSlotArray[ArrayIndex]->SetText(FText::FromString(Player->CurrentWeapon->GetFName().ToString()));
-				ArrayIndex++;
-			//}
+			for (int i = 0; i < WeaponArray.Num(); i++)
+			{
+				WeaponSlotArray[i]->SetText(FText::FromString(WeaponArray[i]->GetFName().ToString()));
+				if (WeaponArray[i]->GetUIColorComponent() != nullptr)
+				{
+					WeaponSlotArray[i]->SetColorAndOpacity(WeaponArray[i]->GetUIColorComponent()->GetTextColor());
+				}
+			}
 		}
 	}
 }
@@ -48,12 +43,4 @@ void UWeaponSystemWidget::CreateWeaponSlotArray()
 void UWeaponSystemWidget::NativeConstruct()
 {
 	CreateWeaponSlotArray();
-	//AWeaponSystem_Team7Character* Player = Cast<AWeaponSystem_Team7Character>(GetWorld()->GetFirstPlayerController()->GetPawn());
-
-	//if (Player != nullptr)
-	//{
-	//	Ammo = Player->CurrentWeapon->GetAmmoComponent();
-	//}
-	//WidgetHolder = CreateWidget<UUserWidget>(GetWorld()->)
-	//	TRY TO DO IN CHARACTER
 }

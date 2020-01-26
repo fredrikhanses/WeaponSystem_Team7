@@ -11,19 +11,28 @@ class WEAPONSYSTEM_TEAM7_API UAmmo : public UModuleBase
 
 private:
 
+	/**
+	* Stores the original clip size
+	*/
 	float OriginalClipSize;
 
 public:	
 
-	UPROPERTY(EditAnywhere, Category = Ammo)
-	int MaxAmmo = 100;
-
+	/**
+	* Stores surplus ammo
+	*/
 	UPROPERTY(EditAnywhere, Category = Ammo)
 	int SurplusAmmo = 100;
 
+	/**
+	* Stores current ammo
+	*/
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Ammo)
 	int CurrentAmmo = 10;
 
+	/**
+	* Stores the clip size. Used to calculate how much to reload
+	*/
 	UPROPERTY(EditAnywhere, Category = Ammo)
 	int ClipSize = 10;
 
@@ -32,11 +41,14 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-
+	
+	/**
+	* Default constructor
+	*/
 	UAmmo();
 
 	/**
-	* Inherited function that is used in conjunction with 
+	* Inherited function that executes the main function of the class
 	*/
 	UFUNCTION(BlueprintCallable)
 	virtual void Execute() override;
@@ -60,9 +72,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Reload();
 
+	/**
+	* Gets current ammo
+	*/
 	UFUNCTION(BlueprintCallable)
 	int GetCurrentAmmo();
 
+	/**
+	* Sets surplus ammo
+	*/
 	UFUNCTION(BlueprintCallable)
 	int GetSurplusAmmo();
 

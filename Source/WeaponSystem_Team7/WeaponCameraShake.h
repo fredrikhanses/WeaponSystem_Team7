@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -13,30 +11,57 @@ class WEAPONSYSTEM_TEAM7_API UWeaponCameraShake : public UCameraShake
 
 public:
 
+	/**
+	* Default constructor
+	*/
 	UWeaponCameraShake();
 
-	UPROPERTY(EditAnywhere, Category = "Pitch")
+	/**
+	* Minimum pitch amount
+	*/
+	UPROPERTY(EditAnywhere, Category = Pitch)
 	float MinPitchAmplitude;
 
-	UPROPERTY(EditAnywhere, Category = "Pitch")
+	/**
+	* Maximum pitch amount
+	*/
+	UPROPERTY(EditAnywhere, Category = Pitch)
 	float MaxPitchAmplitude;
 
-	UPROPERTY(EditAnywhere, Category = "Pitch")
+	/**
+	* Minimum pitch interval
+	*/
+	UPROPERTY(EditAnywhere, Category = Pitch)
 	float MinPitchFrequency;
 
-	UPROPERTY(EditAnywhere, Category = "Pitch")
+	/**
+	* Maximum pitch interval
+	*/
+	UPROPERTY(EditAnywhere, Category = Pitch)
 	float MaxPitchFrequency;
-	
-	UPROPERTY(EditAnywhere, Category = "Yaw")
+
+	/**
+	* Minimum yaw interval
+	*/
+	UPROPERTY(EditAnywhere, Category = Yaw)
 	float MinYawAmplitude;
 
-	UPROPERTY(EditAnywhere, Category = "Yaw")
+	/**
+	* Maximum yaw amount
+	*/
+	UPROPERTY(EditAnywhere, Category = Yaw)
 	float MaxYawAmplitude;
 
-	UPROPERTY(EditAnywhere, Category = "Yaw")
+	/**
+	* Minimum yaw interval
+	*/
+	UPROPERTY(EditAnywhere, Category = Yaw)
 	float MinYawFrequency;
 
-	UPROPERTY(EditAnywhere, Category = "Yaw")
+	/**
+	* Maximum yaw interval
+	*/
+	UPROPERTY(EditAnywhere, Category = Yaw)
 	float MaxYawFrequency;
 
 };

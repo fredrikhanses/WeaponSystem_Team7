@@ -7,8 +7,8 @@ USkinToggle::USkinToggle()
 void USkinToggle::BeginPlay()
 {
 	Super::BeginPlay();
-	WeaponMesh = Cast<AWeapon>(GetOwner());
-	Mesh = WeaponMesh->Mesh;
+	Weapon = Cast<AWeapon>(GetOwner());
+	Mesh = Weapon->Mesh;
 }
 
 void USkinToggle::SetMesh(USkeletalMesh* InMesh)

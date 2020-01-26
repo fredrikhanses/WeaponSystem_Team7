@@ -1,5 +1,4 @@
 #include "Ammo.h"
-#include "Engine/Engine.h"
 
 UAmmo::UAmmo()
 {

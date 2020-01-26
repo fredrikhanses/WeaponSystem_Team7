@@ -30,5 +30,5 @@ void AWeaponSystem_Team7HUD::DrawHUD()
 	// draw the crosshair
 	FCanvasTileItem TileItem( CrosshairDrawPosition, CrosshairTex->Resource, FLinearColor::White);
 	TileItem.BlendMode = SE_BLEND_Translucent;
-	Canvas->DrawItem( TileItem );
+	//Canvas->DrawItem( TileItem );
 }

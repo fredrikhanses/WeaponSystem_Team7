@@ -99,6 +99,11 @@ void UFireMode::ProcessInstantHit(const FHitResult& Hit, const FVector& Origin, 
 		GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Magenta, Hit.GetActor()->GetFName().ToString());
 
 		UGameplayStatics::ApplyDamage(Hit.GetActor(), Damage, nullptr, nullptr, nullptr);
+
+		if (EmitterTemplate != nullptr)
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), EmitterTemplate, Hit.ImpactPoint, Hit.Normal.Rotation(), FVector(EmitterScale, EmitterScale, EmitterScale));
+		}
 	}
 	else
 	{

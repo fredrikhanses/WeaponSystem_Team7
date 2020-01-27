@@ -4,6 +4,7 @@
 #include "ModuleBase.h"
 #include "Weapon.h"
 #include "WeaponSystem_Team7Projectile.h"
+#include <Particles/ParticleSystem.h>
 #include "FireMode.generated.h"
 
 UENUM()
@@ -65,6 +66,18 @@ public:
 	*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Projectile")
 		TSubclassOf<AWeaponSystem_Team7Projectile> ProjectileClass;
+
+	/**
+	* The particles system that is used when hitting an enemy.
+	*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effects")
+		UParticleSystem* EmitterTemplate;
+
+	/**
+	* The particles system that is used when hitting an enemy.
+	*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effects")
+	float EmitterScale;
 
 private:
 	UFireMode();
